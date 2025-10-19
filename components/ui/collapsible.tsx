@@ -1,10 +1,9 @@
 import { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, useColorScheme } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { msArrowRight } from '@material-symbols-react-native/rounded-200';
 import { MsIcon } from 'material-symbols-react-native';
 

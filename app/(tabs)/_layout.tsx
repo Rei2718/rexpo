@@ -3,7 +3,7 @@ import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from 'react-native';
 
 import { msFastfood, msFastfoodFill, msHome, msHomeFill, msSchedule, msScheduleFill, msSettings, msSettingsFill } from "@material-symbols-react-native/rounded-200";
 import { MsIcon } from 'material-symbols-react-native';
@@ -14,12 +14,14 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].accent,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarStyle: {
-          backgroundColor: Colors[colorScheme ?? 'light'].background,
+          backgroundColor: Colors[colorScheme ?? 'light'].backgroundPrimary,
           borderTopWidth: 0,
+          elevation: 0, // Android
+          shadowOpacity: 0, // iOS
         },
       }}
     >

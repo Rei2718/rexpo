@@ -1,11 +1,21 @@
+import MyTabs from '@/components/screen/schedule';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ScheduleScreenLayout() {
   return (
     <SafeAreaView
       edges={['top', 'left', 'right']}
-      className="flex-1 bg-[#000000]"
+      style={styles.container}
     >
+      <MyTabs />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#000000',
+  },
+});

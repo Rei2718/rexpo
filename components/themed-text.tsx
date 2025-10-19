@@ -1,11 +1,12 @@
-import { StyleSheet, Text, type TextProps } from 'react-native';
-
+import { Colors } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { StyleSheet, Text, type TextProps } from 'react-native';
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | "label" | 'title' | "ExtraLargeTitle" | 'defaultSemiBold' | 'subtitle' | 'link';
+  colorName?: keyof typeof Colors.light;
 };
 
 export function ThemedText({
@@ -13,16 +14,19 @@ export function ThemedText({
   lightColor,
   darkColor,
   type = 'default',
+  colorName = 'textPrimary',
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, colorName)
 
   return (
     <Text
       style={[
         { color },
         type === 'default' ? styles.default : undefined,
+        type === 'label' ? styles.label : undefined,
         type === 'title' ? styles.title : undefined,
+        type === 'ExtraLargeTitle' ? styles.ExtraLargeTitle : undefined,
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'link' ? styles.link : undefined,
@@ -35,26 +39,37 @@ export function ThemedText({
 
 const styles = StyleSheet.create({
   default: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 14,
+    fontWeight: "400",
+    lineHeight: 22,
+  },
+  label: {
+    fontSize: 15,
+    fontWeight: "600",
+    lineHeight: 23,
   },
   defaultSemiBold: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: '600',
+    fontWeight: '800',
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
+    fontSize: 20,
+    fontWeight: "400",
+    lineHeight: 28,
+  },
+  ExtraLargeTitle: {
+    fontSize: 35,
+    fontWeight: "700",
+    lineHeight: 43,
   },
   subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 17,
+    fontWeight: "800",
+    lineHeight: 25,
   },
   link: {
-    lineHeight: 30,
     fontSize: 16,
-    color: '#0a7ea4',
+    lineHeight: 24,
   },
 });
