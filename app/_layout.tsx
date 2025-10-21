@@ -1,6 +1,7 @@
 import { Colors } from '@/constants/theme';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'react-native';
@@ -23,7 +24,21 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: 'modal', headerShown: false }} />
-            <Stack.Screen name="test-modal" options={{ presentation: 'modal', headerShown: false}} />
+            <Stack.Screen name="test-modal"
+              options={{
+                presentation: 'modal',
+                headerShown: true,
+                headerTransparent: true,
+                headerTitle: '',
+                headerTintColor: Colors[colorScheme ?? 'light'].textPrimary,
+                headerBackground: () => (
+                  <LinearGradient
+                    colors={[Colors[colorScheme ?? 'light'].backgroundPrimary, 'transparent']}
+                    style={{ flex: 1 }}
+                  />
+                ),
+              }}
+            />
           </Stack>
           <StatusBar style="auto" />
         </GestureHandlerRootView>

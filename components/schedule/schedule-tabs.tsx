@@ -1,11 +1,11 @@
 import { Colors } from '@/constants/theme';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useColorScheme, View } from 'react-native';
-import Content from './content';
+import { useColorScheme } from 'react-native';
+import EventList from "./event-list";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function MyTabs() {
+export default function ScheduleTabs() {
   const colorScheme = useColorScheme();
 
   return (
@@ -14,8 +14,8 @@ export default function MyTabs() {
         tabBarScrollEnabled: false,
         tabBarStyle: {
           backgroundColor: Colors[colorScheme ?? 'light'].backgroundPrimary,
-          elevation: 0, // Android
-          shadowOpacity: 0, // iOS
+          elevation: 0,
+          shadowOpacity: 0,
         },
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].textPrimary,
         tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].textSecondary,
@@ -25,28 +25,14 @@ export default function MyTabs() {
         },
       }}
     >
-      <Tab.Screen name="Academic Stage" component={AcademicStageScreen} />
-      <Tab.Screen name="Entertainment Fes" component={EntertainmentFesScreen} />
+      <Tab.Screen
+        name="Academic Stage"
+        component={() => <EventList category="Academic Stage" />}
+      />
+      <Tab.Screen
+        name="Entertainment Fes"
+        component={() => <EventList category="Entertainment Fes" />}
+      />
     </Tab.Navigator>
-  );
-}
-
-function AcademicStageScreen() {
-  return (
-    <View
-      style={{ flex: 1, paddingVertical: 20, paddingHorizontal: 16 }}
-    >
-      <Content category="Academic Stage"/>
-    </View>
-  );
-}
-
-function EntertainmentFesScreen() {
-  return (
-    <View
-      style={{ flex: 1, paddingVertical: 20, paddingHorizontal: 16 }}
-    >
-      <Content category="Entertainment Fes"/>
-    </View>
   );
 }

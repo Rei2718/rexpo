@@ -1,14 +1,14 @@
-import MyTabs from '@/components/screen/schedule';
+import ScheduleTabs from '@/components/schedule/schedule-tabs';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function ScheduleScreenLayout() {
+export default function Schedule() {
   return (
     <SafeAreaView
       edges={['top', 'left', 'right']}
       style={styles.container}
     >
-      <MyTabs />
+      <ScheduleTabs />
     </SafeAreaView>
   );
 }
