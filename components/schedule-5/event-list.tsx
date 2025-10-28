@@ -2,10 +2,7 @@ import { ThemedText } from "@/components/themed-text";
 import { FALLBACK_IMAGE_URL } from "@/constants/assets";
 import { Colors } from "@/constants/theme";
 import { formatTime } from "@/utils/date";
-import {
-  msArrowForwardIos,
-  msSchedule,
-} from "@material-symbols-react-native/rounded-200";
+import { msArrowForwardIos, msSchedule } from "@material-symbols-react-native/rounded-200";
 import { Link } from "expo-router";
 import { MsIcon } from "material-symbols-react-native";
 import { Image, TouchableOpacity, useColorScheme, View } from "react-native";
@@ -16,11 +13,11 @@ interface EventCardProps {
   event: EventCardData;
 }
 
-export default function EventCard({ event }: EventCardProps) {
+export default function EventList ({ event }: EventCardProps) {
   const colorScheme = useColorScheme();
   const timeSlots = event.time_slots;
 
-  return (
+  return(
     <View>
       <Link
         href={{
@@ -34,10 +31,7 @@ export default function EventCard({ event }: EventCardProps) {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              padding: 12,
-              borderRadius: 24,
-              marginBottom: 6,
-              backgroundColor: Colors[colorScheme ?? 'light'].backgroundPrimary,
+              marginBottom: 12,
             }}
           >
             <Image
@@ -84,7 +78,7 @@ export default function EventCard({ event }: EventCardProps) {
               </View>
             </View>
             <ThemedView
-              colorName="backgroundSecondary"
+              colorName="backgroundPrimary"
               style={{
                 width: 36,
                 height: 36,
@@ -95,13 +89,13 @@ export default function EventCard({ event }: EventCardProps) {
             >
               <MsIcon
                 icon={msArrowForwardIos}
-                size={12}
-                color={Colors[colorScheme ?? 'light'].textPrimary}
+                size={18}
+                color={Colors[colorScheme ?? 'light'].textSecondary}
               />
             </ThemedView>
           </View>
         </TouchableOpacity>
       </Link>
     </View>
-  );
+  )
 }

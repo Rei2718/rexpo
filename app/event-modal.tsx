@@ -1,4 +1,4 @@
-import ParallaxScrollView from '@/components/parallax-scroll-view';
+import ParallaxScrollImageView from '@/components/parallax-scroll-image-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useViewEventDetails } from '@/supabase/data';
@@ -51,7 +51,7 @@ export default function EventModalScreen() {
     const sponsors = data.sponsors as Sponsor[] | null;
 
     return (
-      <ParallaxScrollView
+      <ParallaxScrollImageView
         headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
         headerImage={
           <ExpoImage
@@ -130,7 +130,7 @@ export default function EventModalScreen() {
           )}
 
         </ThemedView>
-      </ParallaxScrollView>
+      </ParallaxScrollImageView>
     )
   };
 

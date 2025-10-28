@@ -2,10 +2,7 @@ import { ThemedText } from "@/components/themed-text";
 import { FALLBACK_IMAGE_URL } from "@/constants/assets";
 import { Colors } from "@/constants/theme";
 import { formatTime } from "@/utils/date";
-import {
-  msArrowForwardIos,
-  msSchedule,
-} from "@material-symbols-react-native/rounded-200";
+import { msArrowForwardIos, msSchedule } from "@material-symbols-react-native/rounded-200";
 import { Link } from "expo-router";
 import { MsIcon } from "material-symbols-react-native";
 import { Image, TouchableOpacity, useColorScheme, View } from "react-native";
@@ -16,7 +13,7 @@ interface EventCardProps {
   event: EventCardData;
 }
 
-export default function EventCard({ event }: EventCardProps) {
+export default function Card({ event }: EventCardProps) {
   const colorScheme = useColorScheme();
   const timeSlots = event.time_slots;
 

@@ -16,12 +16,12 @@ interface EventCardProps {
   event: EventCardData;
 }
 
-export default function EventCard({ event }: EventCardProps) {
+export default function EventListAbout ({ event }: EventCardProps) {
   const colorScheme = useColorScheme();
   const timeSlots = event.time_slots;
 
-  return (
-    <View>
+  return(
+    <View style={{ paddingHorizontal: 24 }}>
       <Link
         href={{
           pathname: "/test-modal",
@@ -34,9 +34,8 @@ export default function EventCard({ event }: EventCardProps) {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              padding: 12,
+              padding: 6,
               borderRadius: 24,
-              marginBottom: 6,
               backgroundColor: Colors[colorScheme ?? 'light'].backgroundPrimary,
             }}
           >
@@ -103,5 +102,5 @@ export default function EventCard({ event }: EventCardProps) {
         </TouchableOpacity>
       </Link>
     </View>
-  );
+  )
 }

@@ -2,7 +2,7 @@ import { useViewEventList } from "@/supabase/data";
 import { EventCategory } from "@/supabase/data/types";
 import { ActivityIndicator, FlatList, StyleProp, View, ViewStyle } from "react-native";
 import { ThemedText } from "../themed-text";
-import EventCard from "./event-card";
+import Card from "./card";
 import { EventCardData } from "./types";
 
 interface EventListProps {
@@ -11,12 +11,12 @@ interface EventListProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export default function EventList({ category, ListHeaderComponent, style }: EventListProps) {
+export default function List({ category, ListHeaderComponent, style }: EventListProps) {
   const { data, isPending, isError } = useViewEventList(category);
 
   const renderEventCard = ({ item }: { item: EventCardData }) => (
     <View style={{ paddingHorizontal: 12 }}>
-      <EventCard event={item} />
+      <Card event={item} />
     </View>
   );
 

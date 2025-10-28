@@ -47,7 +47,7 @@ export const Colors = {
   dark: {
     // --- Text Colors ---
     // For primary text like titles and body.
-    textPrimary: '#F2F2F7',
+    textPrimary: '#FBFBFC',
     // For secondary text like captions and subtitles (60% opacity).
     textSecondary: '#AEAEB2',
     // For tertiary text like disabled text (30% opacity).
@@ -59,7 +59,7 @@ export const Colors = {
     // For the main background of a screen.
     backgroundPrimary: '#000000',
     // For grouped content or cards.
-    backgroundSecondary: '#2C2C2E',
+    backgroundSecondary: '#232328',
     // For content on top of secondary backgrounds.
     backgroundTertiary: '#3A3A3C',
 

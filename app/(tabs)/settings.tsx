@@ -1,15 +1,15 @@
-import { Text } from "react-native";
+import EventTab from "@/components/schedule-5/event-tab";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SettingsScreen() {
   return (
-    <SafeAreaView
-      edges={['top', 'left', 'right']}
-      className="flex-1 items-center justify-center bg-[#000000]"
-    >
-      <Text className="text-xl font-bold text-blue-500">
-        SettingsScreen
-      </Text>
+    <SafeAreaView style={{ flex: 1, padding: 24 }}>
+      <ThemedText type="ExtraLargeTitle" style={{ paddingBottom: 24 }}>Planning</ThemedText>
+      <ThemedView colorName="backgroundPrimary">
+        <EventTab />
+      </ThemedView>
     </SafeAreaView>
   );
 }

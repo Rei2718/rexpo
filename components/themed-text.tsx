@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   title: {
-    fontSize: 20,
-    fontWeight: "400",
+    fontSize: 18,
+    fontWeight: "500",
     lineHeight: 28,
   },
   ExtraLargeTitle: {
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
     lineHeight: 43,
   },
   subtitle: {
-    fontSize: 17,
-    fontWeight: "800",
+    fontSize: 16,
+    fontWeight: "500",
     lineHeight: 25,
   },
   link: {
