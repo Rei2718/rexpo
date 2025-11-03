@@ -31,11 +31,13 @@ export function AcademicStage() {
   );
 
   return(
-    <FlatList
-      data={data as EventCardData[] || []}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.event_id}
-      contentContainerStyle={{ paddingVertical: 24 }}
-    />
+    <View>
+      <FlatList
+        data={data as EventCardData[] || []}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.event_id}
+        contentContainerStyle={{ paddingVertical: 24 }}
+      />
+    </View>
   )
 }

@@ -33,16 +33,16 @@ export default function EventDetailsPerformerItem({ performer }: PerformerItemPr
           style={{ width: 36, height: 36, borderRadius: 18, marginRight: 12 }}
         />
         <View>
-          <ThemedText type="default">{performer.name}</ThemedText>
+          <ThemedText type="body">{performer.name}</ThemedText>
           {performer.role && (
-            <ThemedText type="default" colorName="textSecondary">
+            <ThemedText type="body" colorName="textSecondary">
               {performer.role}
             </ThemedText>
           )}
         </View>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 12 }}>
-        <ThemedText type="default" colorName="textPrimary" style={{ marginRight: 4 }}>
+        <ThemedText type="body" colorName="textPrimary" style={{ marginRight: 4 }}>
           Check More
         </ThemedText>
         <MsIcon

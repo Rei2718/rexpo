@@ -1,11 +1,9 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
 import { HapticTab } from '@/components/haptic-tab';
 import { Colors } from '@/constants/theme';
+import { Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
-import { msFastfood, msFastfoodFill, msHome, msHomeFill, msSchedule, msScheduleFill, msSettings, msSettingsFill } from "@material-symbols-react-native/rounded-200";
+import { msHome, msHomeFill, msSchedule, msScheduleFill } from "@material-symbols-react-native/rounded-200";
 import { MsIcon } from 'material-symbols-react-native';
 
 export default function TabLayout() {
@@ -47,6 +45,7 @@ export default function TabLayout() {
           ),
         }}
       />
+      {/*
       <Tabs.Screen
         name="foods"
         options={{
@@ -69,6 +68,7 @@ export default function TabLayout() {
           ),
         }}
       />
+      */}
     </Tabs>
   );
 }

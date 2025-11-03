@@ -1,21 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getViewEventDetails, getViewEventList } from "./function";
+import { getOverviewList } from "./function";
 import { keys } from "./keys";
-import { EventCategory, EventId } from "./types";
+import { Tag } from "./types";
 
-export function useViewEventList(category: EventCategory) {
+export function useGetOverviewList(tag: Tag) {
   const { data, isPending, isError} = useQuery({
-    queryKey: keys.getViewEventList(category),
-    queryFn: () => getViewEventList(category),
-  });
-  return{ data, isPending, isError };
-}
-
-export function useViewEventDetails(id: EventId) {
-  const { data, isPending, isError} = useQuery({
-    queryKey: keys.getViewEventDetails(id),
-    queryFn: () => getViewEventDetails(id),
-    enabled: !!id,
+    queryKey: keys.getOverviewList(tag),
+    queryFn: () => getOverviewList(tag),
+    enabled: !!tag,
   });
   return{ data, isPending, isError };
 }

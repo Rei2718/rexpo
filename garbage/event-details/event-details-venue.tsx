@@ -14,7 +14,7 @@ export default function VenueSection({ venue }: EventDetailsVenueProps) {
   return (
     <View>
       <ThemedText type="label" colorName="textPrimary">会場</ThemedText>
-      <ThemedText type="default" style={{ paddingTop: 12 }}>
+      <ThemedText type="body" style={{ paddingTop: 12 }}>
         {venue.name} (収容人数: {venue.capacity ?? 'N/A'})
       </ThemedText>
     </View>

@@ -1,7 +1,6 @@
-import { EventCategory, EventId } from "./types";
+import { Tag } from "./types";
 
 export const keys = {
   all: ['event_list'] as const,
-  getViewEventList: (category: EventCategory) => [...keys.all, category] as const,
-  getViewEventDetails: (id: EventId) => [...keys.all, id] as const,
-} as const;
+  getOverviewList: (tag: Tag) => [...keys.all, tag] as const,
+} as const

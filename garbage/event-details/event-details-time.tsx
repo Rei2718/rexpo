@@ -17,7 +17,7 @@ export default function EventDetailsTime({ timeSlots }: EventDetailsTimeProps) {
       <ThemedText type="label" colorName="textPrimary">時間</ThemedText>
       <View style={{ paddingTop: 12, gap: 4 }}>
         {timeSlots.map((slot) => (
-          <ThemedText key={slot.id} type="default">
+          <ThemedText key={slot.id} type="body">
             {formatTime(slot.start_datetime)} - {formatTime(slot.end_datetime)}
           </ThemedText>
         ))}

@@ -9,7 +9,7 @@ export default function EventDetailsAbout({description}: EventDetailsAboutProps)
   return(
     <View>
       <ThemedText type="label" colorName="textPrimary">概要</ThemedText>
-      <ThemedText type="default" colorName="textSecondary" style={{ paddingTop: 12 }}>{description}</ThemedText>
+      <ThemedText type="body" colorName="textSecondary" style={{ paddingTop: 12 }}>{description}</ThemedText>
     </View>
   )
 }

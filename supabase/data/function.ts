@@ -1,19 +1,10 @@
 import { supabase } from "@/supabase/supabase";
-import { EventCategory, EventId } from "./types";
+import { Tag } from "./types";
 
-export async function getViewEventList(category: EventCategory) {
+export async function getOverviewList(tag: Tag) {
     const { data, error } = await supabase
-      .rpc('get_event_list_by_category', {
-        p_category: category
-      })
-    if (error) throw error;
-    return data;
-}
-
-export async function getViewEventDetails(id: EventId) {
-    const { data, error } = await supabase
-      .rpc('get_event_details', {
-        p_event_id: id
+      .rpc("get_events_by_tag", {
+        p_tag_name: tag
       })
     if (error) throw error;
     return data;

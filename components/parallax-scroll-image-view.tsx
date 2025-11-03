@@ -1,29 +1,28 @@
+import { useThemeColor } from '@/hooks/use-theme-color';
 import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet, useColorScheme, } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
   useAnimatedStyle,
   useScrollOffset,
 } from 'react-native-reanimated';
-
-import { ThemedView } from '@/components/themed-view';
-import { useThemeColor } from '@/hooks/use-theme-color';
-
-const HEADER_HEIGHT = 300;
+import { ThemedView } from './themed-view';
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
+  headerChildren: ReactElement;
   headerBackgroundColor: { dark: string; light: string };
 }>;
 
 export default function ParallaxScrollImageView({
   children,
+  headerChildren,
   headerImage,
-  headerBackgroundColor,
 }: Props) {
+  const { height } = useWindowDimensions();
+  const HEADER_HEIGHT = height * 0.8;
   const backgroundColor = useThemeColor({}, 'backgroundPrimary');
-  const colorScheme = useColorScheme() ?? 'light';
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollOffset(scrollRef);
   const headerAnimatedStyle = useAnimatedStyle(() => {
@@ -50,32 +49,15 @@ export default function ParallaxScrollImageView({
       scrollEventThrottle={16}>
       <Animated.View
         style={[
-          styles.header,
-          { backgroundColor: headerBackgroundColor[colorScheme] },
+          { height: HEADER_HEIGHT, overflow: 'hidden' },
           headerAnimatedStyle,
         ]}>
         {headerImage}
       </Animated.View>
-      <ThemedView style={styles.content}>{children}</ThemedView>
+      <ThemedView style={{ flex: 1 }}>
+        {headerChildren}
+        {children}
+      </ThemedView>
     </Animated.ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    height: HEADER_HEIGHT,
-    overflow: 'hidden',
-  },
-  content: {
-    flex: 1,
-    padding: 24,
-    gap: 16,
-    overflow: 'hidden',
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    marginTop: -24,
-  },
-});

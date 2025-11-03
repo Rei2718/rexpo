@@ -1,18 +1,42 @@
-import EventTab from '@/components/schedule-5/event-tab';
+import CarouselContents from '@/components/schedule/carousel-contents';
+import { CategoryTabs } from '@/components/schedule/components/category-tabs';
+import { EventTagListContainer } from '@/components/schedule/components/event-tag-list-container';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScreenLayout } from '@/components/ui/screen-layout';
+import { spacing } from '@/constants/theme';
+import { StyleSheet, View } from 'react-native';
 
 export default function Schedule() {
   return (
-    <SafeAreaView
-      edges={['top', 'left', 'right']}
-      style={{ flex: 1, paddingHorizontal: 24 }}
-    >
-      <ThemedText type="ExtraLargeTitle" style={{ paddingVertical: 24 }}>Planning</ThemedText>
-      <ThemedView colorName="backgroundPrimary" style={{ flex: 1 }}>
-        <EventTab />
-      </ThemedView>
-    </SafeAreaView>
+    <ScreenLayout gap={spacing.xxl}>
+      <View style={styles.container}>
+        <ThemedText type="h1" style={styles.title}>
+          イベント
+        </ThemedText>
+        <CategoryTabs />
+        <CarouselContents />
+      </View>
+      <EventTagListContainer
+        targetTag="テストタグ-ファースト"
+        title="テストタグ-ファースト"
+        subtitle="これはテストのタイトルにぴったり"
+      />
+      <EventTagListContainer
+        targetTag="テストタグ-ファースト"
+        title="テストタグ-ファースト"
+        subtitle="これはテストのタイトルにぴったり"
+      />
+    </ScreenLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    gap: spacing.xl
+  },
+  title: {
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xl,
+    paddingBottom: spacing.l,
+  },
+});

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, useColorScheme, useWindowDimensions } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -7,8 +7,10 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { ThemedView } from '@/components/themed-view';
-
-const HEADER_HEIGHT = 300;
+import { Colors } from '@/constants/theme';
+import { LinearGradient } from 'expo-linear-gradient';
+import { View } from 'react-native-reanimated/lib/typescript/Animated';
+import { ThemedText } from './themed-text';
 
 type ParallaxScrollImageViewProps = {
   children: React.ReactNode;
@@ -16,6 +18,10 @@ type ParallaxScrollImageViewProps = {
 };
 
 export default function ParallaxScrollView({ children, headerContent }: ParallaxScrollImageViewProps) {
+  const { height } = useWindowDimensions();
+  const HEADER_HEIGHT = height * 0.6;
+  const colorScheme = useColorScheme();
+
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollOffset(scrollRef);
   const headerAnimatedStyle = useAnimatedStyle(() => {
@@ -40,13 +46,42 @@ export default function ParallaxScrollView({ children, headerContent }: Parallax
       ref={scrollRef}
       style={{ flex: 1 }}
       scrollEventThrottle={16}>
-      <Animated.View
-        style={[
-          styles.header,
-          headerAnimatedStyle,
-      ]}>
-        {headerContent}
-      </Animated.View>
+      <View style={{ height: HEADER_HEIGHT }} >
+        <Animated.View
+          style={[
+            styles.header,
+            headerAnimatedStyle,
+        ]}>
+          {headerContent}
+        </Animated.View>
+        <LinearGradient
+          colors={['transparent', Colors[colorScheme ?? 'light'].backgroundPrimary ]}
+          style={{
+            paddingHorizontal: 24,
+            paddingTop: 24,
+            paddingBottom: 24,
+          }}
+        >
+          <ThemedText
+            type="title"
+            style={{
+              fontWeight: 'bold',
+              color: Colors[colorScheme ?? 'light'].textPrimary
+            }}
+          >
+            200以上のイベントをチェック。
+          </ThemedText>
+          <ThemedText
+            type="body"
+            style={{
+              color: Colors[colorScheme ?? 'light'].textSecondary,
+              marginTop: 4
+            }}
+          >
+            エンタメ・アカデミックも。あなたの意のままに
+          </ThemedText>
+        </LinearGradient>
+      </View>
       <ThemedView style={styles.content}>{children}</ThemedView>
     </Animated.ScrollView>
   );
@@ -54,14 +89,10 @@ export default function ParallaxScrollView({ children, headerContent }: Parallax
 
 const styles = StyleSheet.create({
   header: {
-    height: HEADER_HEIGHT,
     overflow: 'hidden',
   },
   content: {
     flex: 1,
     overflow: 'hidden',
-    borderTopLeftRadius: 36,
-    borderTopRightRadius: 36,
-    marginTop: -36,
   },
 });

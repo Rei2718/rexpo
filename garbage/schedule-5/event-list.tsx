@@ -1,7 +1,6 @@
 import { ThemedText } from "@/components/themed-text";
 import { FALLBACK_IMAGE_URL } from "@/constants/assets";
 import { Colors } from "@/constants/theme";
-import { formatTime } from "@/utils/date";
 import { msArrowForwardIos, msSchedule } from "@material-symbols-react-native/rounded-200";
 import { Link } from "expo-router";
 import { MsIcon } from "material-symbols-react-native";
@@ -15,7 +14,6 @@ interface EventCardProps {
 
 export default function EventList ({ event }: EventCardProps) {
   const colorScheme = useColorScheme();
-  const timeSlots = event.time_slots;
 
   return(
     <View>
@@ -66,15 +64,6 @@ export default function EventList ({ event }: EventCardProps) {
                     size={16}
                   />
                 </View>
-                {timeSlots && timeSlots.length > 0 && (
-                  <ThemedText
-                    type="subtitle"
-                    colorName="textSecondary"
-                    numberOfLines={1}
-                  >
-                    {`${formatTime(timeSlots[0].start_datetime)} - ${formatTime(timeSlots[0].end_datetime)}`}
-                  </ThemedText>
-                )}
               </View>
             </View>
             <ThemedView

@@ -74,9 +74,9 @@ export default function EventModalScreen() {
                 <View key={performer.id} style={{ flexDirection: 'row', alignItems: 'center', marginTop: 12 }}>
                   <ExpoImage source={{ uri: performer.avatar_url ?? undefined }} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 12 }} />
                   <View>
-                    <ThemedText type="default">{performer.name}</ThemedText>
+                    <ThemedText type="body">{performer.name}</ThemedText>
                     {performer.role && (
-                      <ThemedText type="default" colorName="textSecondary">{performer.role}</ThemedText>
+                      <ThemedText type="body" colorName="textSecondary">{performer.role}</ThemedText>
                     )}
                   </View>
                 </View>
@@ -85,12 +85,12 @@ export default function EventModalScreen() {
           )}
 
 
-          <ThemedText type="default" style={{ marginTop: 12 }}>{data.description}</ThemedText>
+          <ThemedText type="body" style={{ marginTop: 12 }}>{data.description}</ThemedText>
 
           {venue && (
             <View>
               <ThemedText type="subtitle">会場</ThemedText>
-              <ThemedText type="default">{venue.name} (収容人数: {venue.capacity ?? 'N/A'})</ThemedText>
+              <ThemedText type="body">{venue.name} (収容人数: {venue.capacity ?? 'N/A'})</ThemedText>
             </View>
           )}
 
@@ -104,7 +104,7 @@ export default function EventModalScreen() {
                   return parts.length >= 2 ? `${parts[0]}:${parts[1]}` : timeString;
                 };
                 return (
-                  <ThemedText key={slot.id} type="default">
+                  <ThemedText key={slot.id} type="body">
                     {formatTime(slot.start_datetime)} - {formatTime(slot.end_datetime)}
                   </ThemedText>
                 );
@@ -119,9 +119,9 @@ export default function EventModalScreen() {
                  <View key={sponsor.id} style={{ flexDirection: 'row', alignItems: 'center', marginTop: 12 }}>
                   {sponsor.logo_url && <ExpoImage source={{ uri: sponsor.logo_url }} style={{ width: 40, height: 40, borderRadius: 8, marginRight: 12, backgroundColor: '#fff' }} contentFit='contain' />}
                   <View>
-                    <ThemedText type="default">{sponsor.name}</ThemedText>
+                    <ThemedText type="body">{sponsor.name}</ThemedText>
                     {sponsor.level && (
-                      <ThemedText type="default" colorName="textSecondary">{sponsor.level}</ThemedText>
+                      <ThemedText type="body" colorName="textSecondary">{sponsor.level}</ThemedText>
                     )}
                   </View>
                 </View>
