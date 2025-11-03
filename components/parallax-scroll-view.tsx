@@ -1,42 +1,52 @@
-import { StyleSheet, useColorScheme, useWindowDimensions } from 'react-native';
+import type { PropsWithChildren, ReactElement } from 'react';
+import { StyleSheet, View } from 'react-native';
 import Animated, {
+  Extrapolation,
   interpolate,
   useAnimatedRef,
   useAnimatedStyle,
   useScrollOffset,
 } from 'react-native-reanimated';
 
-import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
-import { LinearGradient } from 'expo-linear-gradient';
-import { View } from 'react-native-reanimated/lib/typescript/Animated';
-import { ThemedText } from './themed-text';
+import { useThemeColor } from '@/hooks/use-theme-color';
 
-type ParallaxScrollImageViewProps = {
-  children: React.ReactNode;
-  headerContent: React.ReactNode;
-};
+type Props = PropsWithChildren<{
+  headerImage: ReactElement;
+  headerHeight: number;
+  headerColorName?: keyof (typeof Colors)['light'];
+}>;
 
-export default function ParallaxScrollView({ children, headerContent }: ParallaxScrollImageViewProps) {
-  const { height } = useWindowDimensions();
-  const HEADER_HEIGHT = height * 0.6;
-  const colorScheme = useColorScheme();
-
+export default function ParallaxScrollView({
+  children,
+  headerImage,
+  headerHeight,
+  headerColorName = 'backgroundPrimary',
+}: Props) {
+  const backgroundColor = useThemeColor('backgroundPrimary');
+  const headerBackgroundColor = useThemeColor(headerColorName);
+  
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollOffset(scrollRef);
+
   const headerAnimatedStyle = useAnimatedStyle(() => {
+    const translateY = interpolate(
+      scrollOffset.value,
+      [-headerHeight, 0, headerHeight],
+      [-headerHeight / 2, 0, headerHeight * 0.5]
+    );
+
+    const scale = interpolate(
+      scrollOffset.value,
+      [-headerHeight, 0],
+      [1.5, 1],
+      Extrapolation.CLAMP
+    );
+
     return {
       transform: [
-        {
-          translateY: interpolate(
-            scrollOffset.value,
-            [-HEADER_HEIGHT, 0, HEADER_HEIGHT],
-            [-HEADER_HEIGHT / 2, 0, HEADER_HEIGHT * 0.75]
-          ),
-        },
-        {
-          scale: interpolate(scrollOffset.value, [-HEADER_HEIGHT, 0, HEADER_HEIGHT], [2, 1, 1]),
-        },
+        { translateY },
+        { scale },
       ],
     };
   });
@@ -44,55 +54,31 @@ export default function ParallaxScrollView({ children, headerContent }: Parallax
   return (
     <Animated.ScrollView
       ref={scrollRef}
-      style={{ flex: 1 }}
+      style={[{ backgroundColor }, styles.container]}
+      showsVerticalScrollIndicator={false}
       scrollEventThrottle={16}>
-      <View style={{ height: HEADER_HEIGHT }} >
-        <Animated.View
-          style={[
-            styles.header,
-            headerAnimatedStyle,
+      <Animated.View
+        style={[
+          styles.header,
+          { backgroundColor: headerBackgroundColor },
+          { height: headerHeight },
+          headerAnimatedStyle,
         ]}>
-          {headerContent}
-        </Animated.View>
-        <LinearGradient
-          colors={['transparent', Colors[colorScheme ?? 'light'].backgroundPrimary ]}
-          style={{
-            paddingHorizontal: 24,
-            paddingTop: 24,
-            paddingBottom: 24,
-          }}
-        >
-          <ThemedText
-            type="title"
-            style={{
-              fontWeight: 'bold',
-              color: Colors[colorScheme ?? 'light'].textPrimary
-            }}
-          >
-            200以上のイベントをチェック。
-          </ThemedText>
-          <ThemedText
-            type="body"
-            style={{
-              color: Colors[colorScheme ?? 'light'].textSecondary,
-              marginTop: 4
-            }}
-          >
-            エンタメ・アカデミックも。あなたの意のままに
-          </ThemedText>
-        </LinearGradient>
-      </View>
-      <ThemedView style={styles.content}>{children}</ThemedView>
+        {headerImage}
+      </Animated.View>
+      <View style={styles.content}>{children}</View>
     </Animated.ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
     overflow: 'hidden',
   },
   content: {
-    flex: 1,
     overflow: 'hidden',
   },
 });

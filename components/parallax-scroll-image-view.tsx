@@ -1,28 +1,28 @@
-import { useThemeColor } from '@/hooks/use-theme-color';
 import type { PropsWithChildren, ReactElement } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
   useAnimatedStyle,
   useScrollOffset,
 } from 'react-native-reanimated';
-import { ThemedView } from './themed-view';
+
+import { ThemedView } from '@/components/themed-view';
+import { spacing } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
-  headerChildren: ReactElement;
-  headerBackgroundColor: { dark: string; light: string };
 }>;
 
 export default function ParallaxScrollImageView({
   children,
-  headerChildren,
   headerImage,
 }: Props) {
   const { height } = useWindowDimensions();
-  const HEADER_HEIGHT = height * 0.8;
-  const backgroundColor = useThemeColor({}, 'backgroundPrimary');
+  const headerHeight = height * 0.5;
+
+  const backgroundColor = useThemeColor('backgroundPrimary');
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollOffset(scrollRef);
   const headerAnimatedStyle = useAnimatedStyle(() => {
@@ -31,12 +31,12 @@ export default function ParallaxScrollImageView({
         {
           translateY: interpolate(
             scrollOffset.value,
-            [-HEADER_HEIGHT, 0, HEADER_HEIGHT],
-            [-HEADER_HEIGHT / 2, 0, HEADER_HEIGHT * 0.75]
+            [-headerHeight, 0, headerHeight],
+            [-headerHeight / 2, 0, headerHeight * 0.75]
           ),
         },
         {
-          scale: interpolate(scrollOffset.value, [-HEADER_HEIGHT, 0, HEADER_HEIGHT], [2, 1, 1]),
+          scale: interpolate(scrollOffset.value, [-headerHeight, 0, headerHeight], [2, 1, 1]),
         },
       ],
     };
@@ -49,15 +49,28 @@ export default function ParallaxScrollImageView({
       scrollEventThrottle={16}>
       <Animated.View
         style={[
-          { height: HEADER_HEIGHT, overflow: 'hidden' },
+          styles.header,
+          { height: headerHeight },
           headerAnimatedStyle,
         ]}>
         {headerImage}
       </Animated.View>
-      <ThemedView style={{ flex: 1 }}>
-        {headerChildren}
-        {children}
-      </ThemedView>
+      <ThemedView style={styles.content}>{children}</ThemedView>
     </Animated.ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    overflow: 'hidden',
+  },
+  content: {
+    flex: 1,
+    padding: spacing.xl,
+    gap: spacing.l,
+    overflow: 'hidden',
+    borderTopLeftRadius: spacing.xl,
+    borderTopRightRadius: spacing.xl,
+    marginTop: -spacing.xl,
+  },
+});
