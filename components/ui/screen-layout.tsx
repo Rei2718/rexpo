@@ -13,6 +13,7 @@ export function ScreenLayout({ children, gap = spacing.xl }: ScreenLayoutProps) 
     <ScrollView
       style={styles.flexOne}
       showsVerticalScrollIndicator={false}
+      nestedScrollEnabled={true}
     >
       <SafeAreaView
         edges={["top", "bottom"]}

@@ -1,7 +1,7 @@
 import { useChunkedData } from '@/hooks/use-chunked-data';
 import { useGetOverviewList } from '@/supabase/data';
-import { ErrorComponent } from '../../ui/error-component';
-import { LoadingComponent } from '../../ui/loading-component';
+import { ErrorComponent } from '../ui/error-component';
+import { LoadingComponent } from '../ui/loading-component';
 import { EventTagListUI } from './event-tag-list-uI';
 
 const CHUNK_SIZE = 3;

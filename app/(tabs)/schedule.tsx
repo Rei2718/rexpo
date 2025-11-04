@@ -1,6 +1,6 @@
 import CarouselContents from '@/components/schedule/carousel-contents';
-import { CategoryTabs } from '@/components/schedule/components/category-tabs';
-import { EventTagListContainer } from '@/components/schedule/components/event-tag-list-container';
+import { CategoryTabs } from '@/components/schedule/category-tabs';
+import { EventTagListContainer } from '@/components/schedule/event-tag-list-container';
 import { ThemedText } from '@/components/themed-text';
 import { ScreenLayout } from '@/components/ui/screen-layout';
 import { spacing } from '@/constants/theme';
@@ -16,6 +16,16 @@ export default function Schedule() {
         <CategoryTabs />
         <CarouselContents />
       </View>
+      <EventTagListContainer
+        targetTag="テストタグ-ファースト"
+        title="テストタグ-ファースト"
+        subtitle="これはテストのタイトルにぴったり"
+      />
+      <EventTagListContainer
+        targetTag="テストタグ-ファースト"
+        title="テストタグ-ファースト"
+        subtitle="これはテストのタイトルにぴったり"
+      />
       <EventTagListContainer
         targetTag="テストタグ-ファースト"
         title="テストタグ-ファースト"

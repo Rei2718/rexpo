@@ -1,4 +1,4 @@
-import { EventTagListContainer } from '@/components/schedule/components/event-tag-list-container';
+import { EventTagListContainer } from '@/components/schedule/event-tag-list-container';
 import { ThemedText } from '@/components/themed-text';
 import { CATEGORY_MAP } from '@/constants/category-map';
 import { spacing } from '@/constants/theme';

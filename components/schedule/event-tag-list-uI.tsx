@@ -1,7 +1,8 @@
 import { ThemedText } from '@/components/themed-text';
 import { spacing } from '@/constants/theme';
 import { EventOverview } from '@/supabase/data/types';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { EventColumn } from './event-column';
 
 type EventTagListUIProps = {
@@ -12,6 +13,10 @@ type EventTagListUIProps = {
 
 export function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIProps) {
   const hasData = chunkedData && chunkedData.length > 0;
+  const { width } = useWindowDimensions();
+  const itemWidth = width * 0.85;
+  const separatorWidth = spacing.xl;
+  const snapInterval = itemWidth + separatorWidth;
 
   return (
     <View>
@@ -28,6 +33,10 @@ export function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIP
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContent}
+          snapToInterval={snapInterval}
+          snapToAlignment="center"
+          decelerationRate="fast"
+          nestedScrollEnabled={true}
         />
       ) : (
         <ThemedText style={styles.emptyText}>関連するイベントはありません。</ThemedText>

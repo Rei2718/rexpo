@@ -1,6 +1,11 @@
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { LinearGradient } from "expo-linear-gradient";
-import { ImageBackground, StyleSheet, View, useWindowDimensions } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { spacing, typography } from "../../constants/theme";
 import { ThemedText } from "../themed-text";
@@ -42,8 +47,8 @@ export default function CarouselContents() {
   const carouselWidth = windowWidth * 0.9;
   const carouselHeight = carouselWidth * (9 / 16);
 
-  const backgroundPrimaryColor = useThemeColor('backgroundPrimary');
-  
+  const backgroundPrimaryColor = useThemeColor("backgroundPrimary");
+
   const gradientColors = [
     "transparent",
     backgroundPrimaryColor + "99", // 60% alpha
@@ -73,9 +78,8 @@ export default function CarouselContents() {
             >
               <LinearGradient
                 colors={gradientColors}
-                style={styles.gradient}
-              />
-              <View style={styles.textContainer}>
+                style={styles.textContainer}
+              >
                 <ThemedText
                   type="caption"
                   style={styles.categoryText}
@@ -91,13 +95,13 @@ export default function CarouselContents() {
                   {item.title}
                 </ThemedText>
                 <ThemedText
-                  type="title"
+                  type="body"
                   style={styles.subtitleText}
                   colorName="textSecondary"
                 >
                   {item.subtitle}
                 </ThemedText>
-              </View>
+              </LinearGradient>
             </ImageBackground>
           </ThemedView>
         )}
@@ -121,20 +125,11 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "flex-end",
   },
-  gradient: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: "80%",
-    justifyContent: "flex-end",
-  },
   textContainer: {
     padding: spacing.xl,
   },
   categoryText: {
     textTransform: "uppercase",
-    opacity: 0.8,
   },
   titleText: {
     marginTop: spacing.xxs,

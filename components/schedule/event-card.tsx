@@ -3,8 +3,8 @@ import { spacing } from '@/constants/theme';
 import { EventOverview } from '@/supabase/data/types';
 import { Link } from 'expo-router';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { ThemedText } from '../../themed-text';
-import { ThemedView } from '../../themed-view';
+import { ThemedText } from '../themed-text';
+import { ThemedView } from '../themed-view';
 
 type EventCardProps = {
   item: EventOverview;
@@ -31,10 +31,10 @@ export function EventCard({ item }: EventCardProps) {
           />
 
           <View style={styles.textContainer}>
-            <ThemedText type="label" numberOfLines={2}>
+            <ThemedText type="h3" numberOfLines={2}>
               {item.event_title}
             </ThemedText>
-            <ThemedText type="body" colorName="textSecondary" numberOfLines={1}>
+            <ThemedText type="caption" colorName="textSecondary" numberOfLines={1}>
               {item.event_overview_description}
             </ThemedText>
           </View>
@@ -42,7 +42,7 @@ export function EventCard({ item }: EventCardProps) {
             colorName="backgroundSecondary"
             style={styles.detailButton}
           >
-            <ThemedText type="body" colorName="accent">
+            <ThemedText type="label" colorName="accent">
               詳細
             </ThemedText>
           </ThemedView>

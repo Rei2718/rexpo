@@ -1,9 +1,10 @@
 import { CATEGORY_NAMES } from '@/constants/category-map';
 import { spacing } from '@/constants/theme';
 import { Link } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
-import { ThemedText } from '../../themed-text';
-import { ThemedView } from '../../themed-view';
+import { Pressable, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { ThemedText } from '../themed-text';
+import { ThemedView } from '../themed-view';
 
 export function CategoryTabs() {
   return (
@@ -11,6 +12,7 @@ export function CategoryTabs() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
+        nestedScrollEnabled={true}
         contentContainerStyle={styles.scrollContainer}
       >
         {CATEGORY_NAMES.map((categoryName) => (
@@ -40,11 +42,11 @@ export function CategoryTabs() {
 const styles = StyleSheet.create({
   scrollContainer: {
     paddingHorizontal: spacing.xl,
-    gap: spacing.m,
+    gap: spacing.s,
   },
   tabContainer: {
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.m,
+    paddingHorizontal: spacing.l,
+    paddingVertical: spacing.s,
     borderRadius: 99,
   },
 });

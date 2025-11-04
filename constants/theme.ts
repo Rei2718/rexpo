@@ -75,47 +75,42 @@ export const spacing = {
   l: 16,
   xl: 24,
   xxl: 48,
-  xxxl: 72,
+  xxxl: 60,
 };
 
 export const typography = {
   h1: {
-    fontSize: 42,
-    lineHeight: 52,
-    fontWeight: "600",
+    fontSize: 32,
+    lineHeight: 42,
+    fontWeight: "500",
   },
   h2: {
-    fontSize: 28,
+    fontSize: 21,
     fontWeight: "500",
-    lineHeight: 38,
+    lineHeight: 31,
   },
   h3: {
-    fontSize: 24,
-    fontWeight: '600',
-    lineHeight: 34,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "400",
-    lineHeight: 28,
+    fontSize: 17,
+    fontWeight: '500',
+    lineHeight: 27,
   },
   body: {
-    fontSize: 17,
-    fontWeight: "400",
-    lineHeight: 24,
+    fontSize: 16,
+    fontWeight: "500",
+    lineHeight: 26,
   },
   label: {
     fontSize: 16,
     fontWeight: "600",
-    lineHeight: 23,
+    lineHeight: 26,
   },
   caption: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '500',
-    lineHeight: 20,
+    lineHeight: 24,
   },
   link: {
     fontSize: 16,
-    lineHeight: 24,
+    lineHeight: 26,
   },
 } as const;
