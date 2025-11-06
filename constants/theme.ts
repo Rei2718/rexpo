@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 
-const accentColorLight = '#0091FF';
-const accentColorDark = '#0088FF';
+const accentColorLight = '#6155F5';
+const accentColorDark = '#6B5DFF';
 
 export const Colors = {
   light: {
@@ -20,17 +20,17 @@ export const Colors = {
     tabIconDefault: '#8D8D93',
     tabIconSelected: accentColorLight,
 
-    destructive: '#FF3B30',
+    destructive: '#FF383C',
     success: '#34C759',
     warning: '#FF9500',
   },
   dark: {
-    textPrimary: '#FBFBFC',
+    textPrimary: '#E5E5EA',
     textSecondary: '#8E8E93',
     textTertiary: '#363638',
     textAccent: accentColorDark,
 
-    backgroundPrimary: '#000000',
+    backgroundPrimary: '#0C0C0E',
     backgroundSecondary: '#1C1C1E',
     backgroundTertiary: '#2C2C2E',
 
