@@ -1,5 +1,5 @@
 import { useChunkedData } from '@/hooks/use-chunked-data';
-import { useGetOverviewList } from '@/supabase/data';
+import { useGetEventsListByTag } from '@/supabase/data';
 import { ErrorComponent } from '../ui/error-component';
 import { LoadingComponent } from '../ui/loading-component';
 import { EventTagListUI } from './event-tag-list-uI';
@@ -13,7 +13,7 @@ type EventTagListProps = {
 };
 
 export function EventTagListContainer({ targetTag, title, subtitle }: EventTagListProps) {
-  const { data: originalData, isPending, isError } = useGetOverviewList(targetTag);
+  const { data: originalData, isPending, isError } = useGetEventsListByTag(targetTag);
   const chunkedData = useChunkedData(originalData, CHUNK_SIZE);
 
   if (isPending) {

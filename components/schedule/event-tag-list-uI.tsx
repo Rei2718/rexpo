@@ -1,6 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { spacing } from '@/constants/theme';
-import { EventOverview } from '@/supabase/data/types';
+import { GetEventsListByTag } from '@/supabase/data/types';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { EventColumn } from './event-column';
@@ -8,7 +8,7 @@ import { EventColumn } from './event-column';
 type EventTagListUIProps = {
   title: string;
   subtitle: string;
-  chunkedData: EventOverview[][];
+  chunkedData: GetEventsListByTag[][];
 };
 
 export function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIProps) {
@@ -28,14 +28,14 @@ export function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIP
         <FlatList
           data={chunkedData}
           renderItem={({ item }) => <EventColumn items={item} />}
-          keyExtractor={(chunk) => chunk[0].event_id}
+          keyExtractor={(chunk) => chunk[0].id}
           horizontal={true}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContent}
           snapToInterval={snapInterval}
           snapToAlignment="center"
-          decelerationRate="fast"
+          decelerationRate="normal"
           nestedScrollEnabled={true}
         />
       ) : (

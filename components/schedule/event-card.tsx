@@ -1,13 +1,14 @@
 import { FALLBACK_IMAGE_URL } from '@/constants/assets';
 import { spacing } from '@/constants/theme';
-import { EventOverview } from '@/supabase/data/types';
+import { GetEventsListByTag } from '@/supabase/data/types';
+import { Image } from 'expo-image';
 import { Link } from 'expo-router';
-import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { ThemedText } from '../themed-text';
 import { ThemedView } from '../themed-view';
 
 type EventCardProps = {
-  item: EventOverview;
+  item: GetEventsListByTag;
 };
 
 export function EventCard({ item }: EventCardProps) {
@@ -16,26 +17,23 @@ export function EventCard({ item }: EventCardProps) {
       <Link
         href={{
           pathname: "/test-modal",
-          params: { id: item.event_id },
+          params: { id: item.id },
         }}
         asChild
       >
         <Pressable style={styles.container}>
           <Image
-            source={
-              item.event_logo_url
-                ? { uri: item.event_logo_url }
-                : FALLBACK_IMAGE_URL
-            }
+            source={item.logo_url ? item.logo_url : FALLBACK_IMAGE_URL}
             style={styles.image}
+            transition={300}
           />
 
           <View style={styles.textContainer}>
             <ThemedText type="h3" numberOfLines={2}>
-              {item.event_title}
+              {item.title}
             </ThemedText>
             <ThemedText type="caption" colorName="textSecondary" numberOfLines={1}>
-              {item.event_overview_description}
+              {item.overview_description}
             </ThemedText>
           </View>
           <ThemedView
