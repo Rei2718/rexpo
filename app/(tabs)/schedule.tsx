@@ -2,31 +2,27 @@ import CarouselContents from '@/components/schedule/carousel-contents';
 import { CategoryTabs } from '@/components/schedule/category-tabs';
 import { EventTagListContainer } from '@/components/schedule/event-tag-list-container';
 import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
 import { spacing } from '@/constants/theme';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ScheduleHeader = () => (
-  <View style={styles.container}>
+  <View>
     <ThemedText type="h1" style={styles.title}>
       イベント
     </ThemedText>
+    <View style={styles.tabs}>
+      <CategoryTabs />
+    </View>
+    <View>
+      <CarouselContents />
+    </View>
   </View>
 );
 
 const sections = [
-  {
-    key: 'header',
-    render: () => <ScheduleHeader />,
-  },
-  {
-    key: 'categoryTabs',
-    render: () => <CategoryTabs />,
-  },
-  {
-    key: 'carousel',
-    render: () => <CarouselContents />,
-  },
+  { key: 'header', render: () => <ScheduleHeader /> },
   {
     key: 'main-1',
     render: () => (
@@ -57,26 +53,27 @@ export default function Schedule() {
   };
 
   return (
-    <FlatList
-      data={sections}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.key}
-      ItemSeparatorComponent={() => <View style={styles.separator} />}
-      contentContainerStyle={{
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-      }}
-    />
+    <ThemedView>
+      <FlatList
+        data={sections}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.key}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        contentContainerStyle={{
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+        }}
+      />
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    gap: spacing.xl,
-  },
   title: {
-    paddingHorizontal: spacing.xl,
-    paddingTop: spacing.xl,
+    padding: spacing.xl,
+    paddingBottom: spacing.xxl
+  },
+  tabs: {
     paddingBottom: spacing.l,
   },
   separator: {

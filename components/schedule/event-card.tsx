@@ -16,7 +16,7 @@ export function EventCard({ item }: EventCardProps) {
     <View>
       <Link
         href={{
-          pathname: "/test-modal",
+          pathname: "/event-detail",
           params: { id: item.id },
         }}
         asChild

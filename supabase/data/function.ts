@@ -9,3 +9,14 @@ export async function getEventsListByTag(tag: Tag) {
     if (error) throw error;
     return data;
 }
+
+export async function getEventDetailsById(id: string) {
+  const { data, error } = await supabase
+    .rpc("get_event_details_by_id", {
+      p_event_public_id: id
+    })
+    .single();
+
+  if (error) throw error;
+  return data;
+}

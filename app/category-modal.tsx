@@ -1,14 +1,16 @@
 import { EventTagListContainer } from '@/components/schedule/event-tag-list-container';
 import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
 import { CATEGORY_MAP } from '@/constants/category-map';
 import { spacing } from '@/constants/theme';
-import { useHeaderHeight } from '@react-navigation/elements';
+import { useThemeColor } from '@/hooks/use-theme-color';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 export default function CategoryModal() {
   const { categoryName } = useLocalSearchParams<{ categoryName: string }>();
-  const headerHeight = useHeaderHeight();
+  const headerBackgroundColor = useThemeColor('backgroundPrimary');
+  const headerTextColor = useThemeColor('textPrimary');
 
   if (!categoryName) {
     return (
@@ -21,22 +23,23 @@ export default function CategoryModal() {
   const specificTags = CATEGORY_MAP[categoryName] || [];
 
   return (
-    <>
+    <ThemedView style={styles.container}>
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTransparent: true,
+          headerTransparent: false,
           headerTitle: categoryName,
+          headerStyle: { backgroundColor: headerBackgroundColor },
+          headerTintColor: headerTextColor,
         }}
       />
       <ScrollView
-        contentContainerStyle={{
-          paddingTop: headerHeight + spacing.xl,
-          paddingBottom: spacing.xxl,
-        }}
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled={true}
       >
         {specificTags.length > 0 ? (
-          <View style={styles.contentContainer}>
+          <View style={styles.scrollViewContent}>
             {specificTags.map((tagInfo) => (
               <EventTagListContainer
                 key={tagInfo.title}
@@ -52,17 +55,23 @@ export default function CategoryModal() {
           </View>
         )}
       </ScrollView>
-    </>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    paddingVertical: spacing.xl,
+  },
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  contentContainer: {
+  scrollViewContent: {
     gap: spacing.xxl,
   },
   paddingView: {
