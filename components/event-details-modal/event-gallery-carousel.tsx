@@ -3,70 +3,58 @@ import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
-import { EventDetailSection } from './event-detail-section';
 
-function GalleryCarouselItem({ imageUrl }: { imageUrl: string }) {
+interface EventGalleryCarouselProps {
+  imageUrls: (string | null | undefined)[];
+}
+
+export default function EventGalleryCarousel({ imageUrls }: EventGalleryCarouselProps) {
+  const { width: windowWidth } = useWindowDimensions();
+  const carouselWidth = windowWidth * 0.9;
+  const carouselHeight = carouselWidth * (9 / 16);
   const placeholderColor = useThemeColor('backgroundSecondary');
 
+  const validImageUrls = imageUrls.filter((url): url is string => !!url);
+
+  if (validImageUrls.length === 0) {
+    return null;
+  }
+
+  const hasMultipleImages = validImageUrls.length > 1;
+
   return (
-    <View style={styles.itemContainer}>
-      <Image
-        source={{ uri: imageUrl }}
-        style={[styles.image, { backgroundColor: placeholderColor }]}
-        transition={300}
+    <View>
+      <Carousel
+        loop={hasMultipleImages}
+        width={carouselWidth}
+        height={carouselHeight}
+        snapEnabled={true}
+        pagingEnabled={true}
+        autoPlayInterval={5000}
+        autoPlay={hasMultipleImages}
+        data={validImageUrls}
+        style={styles.carousel}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <Image
+              source={{ uri: item }}
+              style={[styles.image, { backgroundColor: placeholderColor }]}
+              transition={300}
+            />
+          </View>
+        )}
       />
     </View>
   );
 }
 
-export function EventGalleryCarousel({
-  imageUrls,
-}: {
-  imageUrls: (string | null | undefined)[];
-}) {
-  const { width: windowWidth } = useWindowDimensions();
-  const carouselWidth = windowWidth * 0.9;
-  const carouselHeight = carouselWidth * (9 / 16);
-
-  const validUrls = imageUrls
-    .filter(Boolean)
-    .map((url) => ({ id: url as string }));
-
-  if (validUrls.length === 0) {
-    return null;
-  }
-
-  return (
-    <View style={styles.sectionContainer}>
-      <EventDetailSection title="開催時間">
-        <Carousel
-          loop={true}
-          width={carouselWidth}
-          height={carouselHeight}
-          autoPlay={false}
-          data={validUrls}
-          style={styles.carousel}
-          renderItem={({ item }) => <GalleryCarouselItem imageUrl={item.id} />}
-        />
-      </EventDetailSection>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    width: '100%',
-  },
-  title: {
-    paddingHorizontal: spacing.xl,
-    marginBottom: spacing.m,
-  },
   carousel: {
     width: '100%',
   },
   itemContainer: {
     flex: 1,
-    borderRadius: spacing.l,
+    borderRadius: spacing.xl,
     marginLeft: spacing.xl,
     overflow: 'hidden',
   },

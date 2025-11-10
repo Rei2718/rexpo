@@ -5,14 +5,22 @@ import { StyleSheet, View } from 'react-native';
 type EventDetailHeaderProps = {
   title?: string | null;
   overview_description?: string | null;
+  sponsorTier?: string | null;
 };
 
-export function EventDetailHeader({ title, overview_description }: EventDetailHeaderProps) {
+export function EventDetailHeader({
+  title,
+  overview_description,
+  sponsorTier,
+}: EventDetailHeaderProps) {
   return (
     <View style={styles.headerContainer}>
+      <ThemedText type="caption" colorName="textAccent" style={styles.sponcorText}>
+        プラチナブーススポンサー
+      </ThemedText>
       <ThemedText type="h1">{title}</ThemedText>
-      <ThemedText type="h3" colorName="textSecondary" style={styles.overviewText}>
-        {overview_description}国内最大手のLorem ipsum
+      <ThemedText type="h3" colorName="textSecondary">
+        {overview_description}
       </ThemedText>
     </View>
   );
@@ -21,10 +29,10 @@ export function EventDetailHeader({ title, overview_description }: EventDetailHe
 const styles = StyleSheet.create({
   headerContainer: {
     paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.l,
+    paddingTop: spacing.l,
     alignItems: 'center',
   },
-  overviewText: {
+  sponcorText: {
     marginTop: spacing.xxs,
   },
 });

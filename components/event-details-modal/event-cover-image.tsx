@@ -1,4 +1,4 @@
-import { Colors, spacing } from '@/constants/theme';
+import { Colors, shadows, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     alignItems: 'center',
     position: 'relative',
-    marginBottom: spacing.xxl * 2 * 0.5,
+    marginBottom: spacing.xxl,
   },
   image: {
     width: '100%',
@@ -54,18 +54,18 @@ const styles = StyleSheet.create({
   },
   logoFrame: {
     position: 'absolute',
-    bottom: -spacing.xxl * 2 * 0.5,
+    bottom: -spacing.xxl,
     backgroundColor: Colors.light.textPrimary,
-    borderRadius: spacing.xl,
+    borderRadius: spacing.xl + spacing.xs,
     padding: spacing.xs,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 5,
     overflow: 'hidden',
+    ...shadows.medium,
   },
   logo: {
-    width: spacing.xxl * 2,
-    height: spacing.xxl * 2,
+    width: spacing.xxxxl,
+    height: spacing.xxxxl,
     borderRadius: spacing.xl,
   },
 });

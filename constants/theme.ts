@@ -76,7 +76,31 @@ export const spacing = {
   xl: 24,
   xxl: 48,
   xxxl: 60,
-};
+  xxxxl: 96,
+} as const;
+
+
+export const radii = {
+  s: 4,
+  m: 8,
+  l: 16,
+  xl: 24,
+  pill: 9999,
+} as const;
+
+export const shadows = {
+  medium: Platform.select({
+    ios: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+    },
+    android: {
+      elevation: 5,
+    },
+  }),
+} as const;
 
 export const typography = {
   h1: {

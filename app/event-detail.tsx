@@ -1,11 +1,13 @@
-import { EventCoverImage } from '@/components/event-details-modal/event-cover-image';
-import { EventDescriptionSection } from '@/components/event-details-modal/event-description-section';
-import { EventDetailHeader } from '@/components/event-details-modal/event-detail-header';
-import { EventGalleryCarousel } from '@/components/event-details-modal/event-gallery-carousel';
-import { EventPerformerList } from '@/components/event-details-modal/event-performer-list';
-import { EventTagSection } from '@/components/event-details-modal/event-tag-section';
-import { EventTimeList } from '@/components/event-details-modal/event-time-list';
-import { EventVenueSection } from '@/components/event-details-modal/event-venue-section';
+import {
+  EventCoverImage,
+  EventDescriptionSection,
+  EventDetailHeader,
+  EventGalleryCarousel,
+  EventPerformerList,
+  EventTagSection,
+  EventTimeList,
+  EventVenueSection,
+} from '@/components/event-details-modal';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { ErrorComponent } from '@/components/ui/error-component';
@@ -61,24 +63,29 @@ export default function EventDetailModal() {
             <EventDetailHeader
               title={data.title}
               overview_description={data.overview_description}
+              sponsorTier="プラチナブーススポンサー"
             />
           </View>
-          <EventGalleryCarousel
-            imageUrls={[
-              data.cover_image_url,
-              data.gallery_image_url_1,
-              data.gallery_image_url_2,
-              data.gallery_image_url_3,
-            ]}
-          />
-          <EventTimeList times={data.times} />
-          <EventPerformerList performers={data.performers} />
           <EventDescriptionSection
             description={data.description}
             overview={data.overview_description}
           />
+
+          <View style={styles.tagCarouselContainer}>
+            <EventTagSection tags={data.tags} />
+            <EventGalleryCarousel
+              imageUrls={[
+                data.cover_image_url,
+                data.gallery_image_url_1,
+                data.gallery_image_url_2,
+                data.gallery_image_url_3,
+              ]}
+            />
+          </View>
+
+          <EventPerformerList performers={data.performers} />
+          <EventTimeList times={data.times} />
           <EventVenueSection venueName={data.venue_name} />
-          <EventTagSection tags={data.tags} />
         </View>
       </ScrollView>
     </ThemedView>
@@ -98,7 +105,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scrollViewContent: {
-    gap: spacing.xl,
+    gap: spacing.xxl,
     paddingBottom: spacing.xxl,
+  },
+  tagCarouselContainer: {
+    gap: spacing.l,
   },
 });

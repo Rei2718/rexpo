@@ -1,63 +1,71 @@
-import { ThemedView } from "@/components/themed-view";
-import { FALLBACK_IMAGE_URL } from "@/constants/assets";
-import { Colors } from "@/constants/theme";
-import { msBookmark } from "@material-symbols-react-native/rounded-200";
+import { Colors, shadows, spacing } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
-import { MsIcon } from "material-symbols-react-native";
-import { useColorScheme, View } from "react-native";
-import { ThemedText } from "../themed-text";
+import { StyleSheet, View } from 'react-native';
 
-interface EventDetailsCoverImageProps {
-  cover_image_url: string | null;
-  event_type: string | null;
-}
+type EventCoverImageProps = {
+  coverImageUrl?: string | null;
+  logoUrl?: string | null;
+};
 
-export default function EventDetailsCoverImage({ cover_image_url, event_type }: EventDetailsCoverImageProps) {
-  const colorScheme = useColorScheme();
+export function EventCoverImage({ coverImageUrl, logoUrl }: EventCoverImageProps) {
+  const placeholderColor = useThemeColor('backgroundSecondary');
 
-  return(
-    <View style={{ position: 'relative', width: '100%', aspectRatio: 1 }}>
+  if (!coverImageUrl) {
+    return null;
+  }
+
+  return (
+    <View style={styles.container}>
       <Image
-        source={cover_image_url ? { uri: cover_image_url } : FALLBACK_IMAGE_URL}
-        style={{ width: '100%', height: '100%', borderRadius: 24 }}
-      />
-      <ThemedView
-        style={{
-          position: 'absolute',
-          top: 12,
-          right: 12,
-          width: 48,
-          height: 48,
-          borderRadius: 24,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <MsIcon icon={msBookmark} color={Colors[colorScheme ?? 'light'].textPrimary} size={32} />
-      </ThemedView>
-      <ThemedView
-        colorName="backgroundPrimary"
-        style={{
-          alignSelf: 'center',
-          padding: 6,
-          borderRadius: 22.5,
-          marginTop: -22.5,
-        }}
-      >
-        <ThemedView
-          colorName="backgroundSecondary"
-          style={{
-            height: 33,
-            minWidth: 200,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 16.5,
-            paddingHorizontal: 15,
-          }}
-        >
-          <ThemedText type="label" colorName="textPrimary">{event_type}</ThemedText>
-        </ThemedView>
-      </ThemedView>
+        source={{ uri: coverImageUrl }}
+        style={[
+          styles.image,
+          { backgroundColor: placeholderColor },
+        ]}
+        transition={300}
+      />
+      {logoUrl && (
+        <View style={styles.logoFrame}>
+          <Image
+            source={{ uri: logoUrl }}
+            style={styles.logo}
+            transition={300}
+            contentFit="cover"
+          />
+        </View>
+      )}
     </View>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: spacing.xl,
+    alignItems: 'center',
+    position: 'relative',
+    marginBottom: spacing.xxl,
+  },
+  image: {
+    width: '100%',
+    maxWidth: 500,
+    aspectRatio: 1,
+    borderRadius: spacing.l,
+  },
+  logoFrame: {
+    position: 'absolute',
+    bottom: -spacing.xxl,
+    backgroundColor: Colors.light.textPrimary,
+    borderRadius: spacing.xl,
+    padding: spacing.xs,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    ...shadows.medium,
+  },
+  logo: {
+    width: spacing.xxxxl,
+    height: spacing.xxxxl,
+    borderRadius: spacing.xl,
+  },
+});
