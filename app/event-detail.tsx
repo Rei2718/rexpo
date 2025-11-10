@@ -1,3 +1,4 @@
+import { EventCoverImage } from '@/components/event-details-modal/event-cover-image';
 import { EventDescriptionSection } from '@/components/event-details-modal/event-description-section';
 import { EventDetailHeader } from '@/components/event-details-modal/event-detail-header';
 import { EventGalleryCarousel } from '@/components/event-details-modal/event-gallery-carousel';
@@ -54,30 +55,30 @@ export default function EventDetailModal() {
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
       >
-        <View style={styles.container}>
-          <EventDetailHeader
-            title={data.title}
-            organizationName={data.organization_name}
-          />
-
-          <View style={styles.scrollViewContent}>
-            <EventTimeList times={data.times} />
-            <EventPerformerList performers={data.performers} />
-            <EventDescriptionSection
-              description={data.description}
-              overview={data.overview_description}
-            />
-            <EventVenueSection venueName={data.venue_name} />
-            <EventTagSection tags={data.tags} />
-            <EventGalleryCarousel
-              imageUrls={[
-                data.cover_image_url,
-                data.gallery_image_url_1,
-                data.gallery_image_url_2,
-                data.gallery_image_url_3,
-              ]}
+        <View style={styles.scrollViewContent}>
+          <View>
+            <EventCoverImage coverImageUrl={data.cover_image_url} logoUrl={data.logo_url} />
+            <EventDetailHeader
+              title={data.title}
+              overview_description={data.overview_description}
             />
           </View>
+          <EventGalleryCarousel
+            imageUrls={[
+              data.cover_image_url,
+              data.gallery_image_url_1,
+              data.gallery_image_url_2,
+              data.gallery_image_url_3,
+            ]}
+          />
+          <EventTimeList times={data.times} />
+          <EventPerformerList performers={data.performers} />
+          <EventDescriptionSection
+            description={data.description}
+            overview={data.overview_description}
+          />
+          <EventVenueSection venueName={data.venue_name} />
+          <EventTagSection tags={data.tags} />
         </View>
       </ScrollView>
     </ThemedView>
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scrollViewContent: {
-    gap: spacing.xxl,
+    gap: spacing.xl,
     paddingBottom: spacing.xxl,
   },
 });

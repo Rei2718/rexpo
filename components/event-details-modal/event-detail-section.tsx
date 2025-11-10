@@ -13,8 +13,8 @@ export function EventDetailSection({ title, children }: EventDetailSectionProps)
   }
 
   return (
-    <View style={styles.container}>
-      <ThemedText type="h3" colorName="textSecondary">{title}</ThemedText>
+    <View>
+      <ThemedText type="h2" colorName="textPrimary" style={styles.container}>{title}</ThemedText>
       <View style={styles.content}>
         {children}
       </View>

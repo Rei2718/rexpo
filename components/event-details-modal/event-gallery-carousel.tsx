@@ -1,9 +1,9 @@
-import { ThemedText } from '@/components/themed-text';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
+import { EventDetailSection } from './event-detail-section';
 
 function GalleryCarouselItem({ imageUrl }: { imageUrl: string }) {
   const placeholderColor = useThemeColor('backgroundSecondary');
@@ -38,18 +38,17 @@ export function EventGalleryCarousel({
 
   return (
     <View style={styles.sectionContainer}>
-      <ThemedText type="h3" colorName="textSecondary" style={styles.title}>
-        ギャラリー
-      </ThemedText>
-      <Carousel
-        loop={true}
-        width={carouselWidth}
-        height={carouselHeight}
-        autoPlay={false}
-        data={validUrls}
-        style={styles.carousel}
-        renderItem={({ item }) => <GalleryCarouselItem imageUrl={item.id} />}
-      />
+      <EventDetailSection title="開催時間">
+        <Carousel
+          loop={true}
+          width={carouselWidth}
+          height={carouselHeight}
+          autoPlay={false}
+          data={validUrls}
+          style={styles.carousel}
+          renderItem={({ item }) => <GalleryCarouselItem imageUrl={item.id} />}
+        />
+      </EventDetailSection>
     </View>
   );
 }
