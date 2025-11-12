@@ -1,13 +1,11 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { FALLBACK_IMAGE_URL } from '@/constants/assets';
-import { Colors, spacing } from '@/constants/theme';
+import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { GetEventDetailsById } from '@/supabase/data/types';
-import { msArrowForwardIos } from '@material-symbols-react-native/rounded-200';
 import { Image } from 'expo-image';
-import { MsIcon } from 'material-symbols-react-native';
-import { StyleSheet, View, useColorScheme } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { EventDetailSection } from './event-detail-section';
 
 type Performer = {
@@ -23,7 +21,6 @@ type EventPerformerListProps = {
 
 export function EventPerformerList({ performers }: EventPerformerListProps) {
   const placeholderColor = useThemeColor('backgroundSecondary');
-  const colorScheme = useColorScheme();
 
   if (!Array.isArray(performers) || performers.length === 0) {
     return null;
@@ -59,20 +56,14 @@ export function EventPerformerList({ performers }: EventPerformerListProps) {
                 )}
               </View>
             </View>
-            <View style={styles.rightContainer}>
-              <ThemedText
-                type="body"
-                colorName="accent"
-                style={styles.checkMoreText}
-              >
+            <ThemedView
+              colorName="backgroundTertiary"
+              style={styles.detailButton}
+            >
+              <ThemedText type="label" colorName="accent">
                 詳細
               </ThemedText>
-              <MsIcon
-                icon={msArrowForwardIos}
-                color={Colors[colorScheme ?? 'light'].accent}
-                size={spacing.l}
-              />
-            </View>
+          </ThemedView>
           </ThemedView>
         ))}
       </View>
@@ -108,8 +99,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingRight: spacing.l,
   },
-  checkMoreText: {
-    marginRight: spacing.xs,
-    lineHeight: spacing.l,
+  detailButton: {
+    borderRadius: 999,
+    paddingVertical: spacing.s,
+    paddingHorizontal: spacing.xl,
+    margin: spacing.xs,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

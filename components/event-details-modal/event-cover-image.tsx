@@ -1,4 +1,4 @@
-import { Colors, shadows, spacing } from '@/constants/theme';
+import { Colors, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    ...shadows.medium,
   },
   logo: {
     width: spacing.xxxxl,

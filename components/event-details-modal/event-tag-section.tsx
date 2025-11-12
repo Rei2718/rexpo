@@ -20,8 +20,8 @@ export function EventTagSection({ tags }: { tags: string[] | null }) {
         <Link
           key={tag}
           href={{
-            pathname: '/category-modal',
-            params: { categoryName: tag },
+            pathname: '/event-tag-modal',
+            params: { tagName: tag },
           }}
           asChild
         >

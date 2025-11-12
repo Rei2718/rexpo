@@ -88,20 +88,6 @@ export const radii = {
   pill: 9999,
 } as const;
 
-export const shadows = {
-  medium: Platform.select({
-    ios: {
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 4,
-    },
-    android: {
-      elevation: 5,
-    },
-  }),
-} as const;
-
 export const typography = {
   h1: {
     fontSize: 32,
