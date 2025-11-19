@@ -1,6 +1,6 @@
-import { EventTagListContainer } from '@/components/event-tag-modal/event-tag-list-container';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import { ThemedText } from '@/components_2/core/ThemedText';
+import { ThemedView } from '@/components_2/core/ThemedView';
+import { EventTagList } from '@/components_2/features/tag-modal/EventTagList';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Stack, useLocalSearchParams } from 'expo-router';
@@ -30,7 +30,7 @@ export default function EventTagModal() {
           headerTintColor: headerTextColor,
         }}
       />
-      <EventTagListContainer targetTag={tagName} />
+      <EventTagList targetTag={tagName} />
     </ThemedView>
   );
 }

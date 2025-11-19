@@ -1,22 +1,23 @@
+import { ErrorComponent } from '@/components_2/core/ErrorComponent';
+import { LoadingComponent } from '@/components_2/core/LoadingComponent';
+import { ThemedText } from '@/components_2/core/ThemedText';
+import { ThemedView } from '@/components_2/core/ThemedView';
 import {
   EventCoverImage,
-  EventDescriptionSection,
-  EventDetailHeader,
+  EventDescription,
   EventGalleryCarousel,
+  EventHeader,
   EventPerformerList,
   EventTagSection,
   EventTimeList,
   EventVenueSection,
-} from '@/components/event-details-modal';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { ErrorComponent } from '@/components/ui/error-component';
-import { LoadingComponent } from '@/components/ui/loading-component';
+} from '@/components_2/features/event-details';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { useGetEventDetailsById } from '@/supabase/data';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function EventDetailModal() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -60,13 +61,13 @@ export default function EventDetailModal() {
         <View style={styles.scrollViewContent}>
           <View>
             <EventCoverImage coverImageUrl={data.cover_image_url} logoUrl={data.logo_url} />
-            <EventDetailHeader
+            <EventHeader
               title={data.title}
               overview_description={data.overview_description}
               sponsorTier="プラチナブーススポンサー"
             />
           </View>
-          <EventDescriptionSection
+          <EventDescription
             description={data.description}
             overview={data.overview_description}
           />

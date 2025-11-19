@@ -1,11 +1,11 @@
-import { HomeContent } from '@/components/home/home-content';
-import ParallaxScrollImageView from '@/components/parallax-scroll-image-view';
+import ParallaxImageScrollView from '@/components_2/core/ParallaxImageScrollView';
+import { HomeContent } from '@/components_2/features/home/HomeContent';
 import { Image } from 'expo-image';
 import { StyleSheet } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollImageView
+    <ParallaxImageScrollView
       headerImage={
         <Image
           source={"https://picsum.photos/seed/dht444ggh/1080/1080"}
@@ -14,7 +14,7 @@ export default function HomeScreen() {
         />
       }>
       <HomeContent />
-    </ParallaxScrollImageView>
+    </ParallaxImageScrollView>
   );
 }
 
@@ -24,4 +24,3 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-

@@ -42,11 +42,12 @@
         }
       ],
       "expo-sqlite",
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
-      "reactCompiler": false // 実験的なので一応FALSE
+      "reactCompiler": false
     },
     "extra": {
       "router": {},

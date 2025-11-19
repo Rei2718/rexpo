@@ -1,4 +1,4 @@
-type TagInfo = {
+export type TagInfo = {
   tag: string;
   title: string;
   subtitle: string;

@@ -1,4 +1,4 @@
-import { HapticTab } from '@/components/haptic-tab';
+import { HapticTab } from '@/components_2/core/HapticTab';
 import { Colors } from '@/constants/theme';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';

@@ -1,6 +1,6 @@
-import { EventTagListContainer } from '@/components/schedule/event-tag-list-container';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import { ThemedText } from '@/components_2/core/ThemedText';
+import { ThemedView } from '@/components_2/core/ThemedView';
+import { EventTagList } from '@/components_2/features/schedule/EventTagList';
 import { CATEGORY_MAP } from '@/constants/category-map';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
@@ -41,7 +41,7 @@ export default function CategoryModal() {
         {specificTags.length > 0 ? (
           <View style={styles.scrollViewContent}>
             {specificTags.map((tagInfo) => (
-              <EventTagListContainer
+              <EventTagList
                 key={tagInfo.title}
                 targetTag={tagInfo.tag}
                 title={tagInfo.title}

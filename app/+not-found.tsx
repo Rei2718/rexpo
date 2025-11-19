@@ -1,5 +1,5 @@
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import { ThemedText } from '@/components_2/core/ThemedText';
+import { ThemedView } from '@/components_2/core/ThemedView';
 import { Link, Stack } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
