@@ -4,6 +4,7 @@ import { spacing } from '@/constants/theme';
 import { Image } from 'expo-image';
 import React from 'react';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const MENU_ITEMS = [
     { id: 'sessions', label: 'セッション' },
@@ -65,6 +66,7 @@ export function HomeContent() {
                     ))}
                 </View>
             </ThemedView>
+            <SafeAreaView edges={['bottom']} />
         </ThemedView>
     );
 }

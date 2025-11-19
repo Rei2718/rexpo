@@ -7,6 +7,7 @@ import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { useGetEventsByIds } from '@/supabase/data';
 import { FlatList, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type BookmarkListProps = {
     type: 'event' | 'food';
@@ -50,6 +51,7 @@ export function BookmarkList({ type }: BookmarkListProps) {
             )}
             keyExtractor={(item) => item.event_public_id || Math.random().toString()}
             ItemSeparatorComponent={ListSeparator}
+            ListFooterComponent={<SafeAreaView edges={['bottom']} />}
             contentContainerStyle={styles.flatListContent}
             showsVerticalScrollIndicator={false}
         />

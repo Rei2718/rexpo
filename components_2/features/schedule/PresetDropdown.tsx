@@ -28,6 +28,7 @@ export function PresetDropdown({ presets, activePresetId, onSelectPreset }: Pres
             <Modal
                 transparent
                 visible={visible}
+                statusBarTranslucent
                 animationType="fade"
                 onRequestClose={() => setVisible(false)}
             >

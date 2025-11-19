@@ -1,26 +1,5 @@
-import ParallaxImageScrollView from '@/components_2/core/ParallaxImageScrollView';
-import { HomeContent } from '@/components_2/features/home/HomeContent';
-import { Image } from 'expo-image';
-import { StyleSheet } from 'react-native';
+import HomeScreen from '@/components_2/features/home/HomeScreen';
 
-export default function HomeScreen() {
-  return (
-    <ParallaxImageScrollView
-      headerImage={
-        <Image
-          source={"https://picsum.photos/seed/dht444ggh/1080/1080"}
-          style={styles.reactLogo}
-          contentFit="cover"
-        />
-      }>
-      <HomeContent />
-    </ParallaxImageScrollView>
-  );
+export default function HomeRoute() {
+  return <HomeScreen />;
 }
-
-const styles = StyleSheet.create({
-  reactLogo: {
-    height: '100%',
-    width: '100%',
-  },
-});
