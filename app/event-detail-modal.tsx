@@ -2,6 +2,7 @@ import { ErrorComponent } from '@/components_2/core/ErrorComponent';
 import { LoadingComponent } from '@/components_2/core/LoadingComponent';
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
+import { BookmarkButton } from '@/components_2/features/bookmarks/BookmarkButton';
 import {
   EventCoverImage,
   EventDescription,
@@ -51,6 +52,7 @@ export default function EventDetailModal() {
           headerTitle: data.title || '',
           headerStyle: { backgroundColor: headerBackgroundColor },
           headerTintColor: headerTextColor,
+          headerRight: () => <BookmarkButton id={id} type="event" />,
         }}
       />
       <ScrollView
