@@ -1,13 +1,9 @@
 import { ThemedView } from '@/components_2/core/ThemedView';
 import { spacing } from '@/constants/theme';
-import { GetEventsListByTag } from '@/supabase/data/types';
 import { Fragment } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { EventCard } from './EventCard';
-
-type EventColumnProps = {
-    items: GetEventsListByTag[];
-};
+import { EventColumnProps } from './types';
 
 export function EventColumn({ items }: EventColumnProps) {
     const { width } = useWindowDimensions();

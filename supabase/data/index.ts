@@ -1,15 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { getEventDetailsById, getEventsListByTag } from "./function";
 import { keys } from "./keys";
 import { Tag } from "./types";
 
 export function useGetEventsListByTag(tag: Tag) {
-  const { data, isPending, isError} = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: keys.getEventsListByTag(tag),
     queryFn: () => getEventsListByTag(tag),
     enabled: !!tag,
   });
-  return{ data, isPending, isError };
+  return { data, isPending, isError };
 }
 
 export function useGetEventDetailsById(id: string) {
@@ -19,4 +19,20 @@ export function useGetEventDetailsById(id: string) {
     enabled: !!id,
   });
   return { data, isPending, isError };
+}
+
+export function useGetEventsByIds(ids: string[]) {
+  const queries = useQueries({
+    queries: ids.map((id) => ({
+      queryKey: keys.getEventDetailsById(id),
+      queryFn: () => getEventDetailsById(id),
+      enabled: !!id,
+    })),
+  });
+
+  const isLoading = queries.some((query) => query.isLoading);
+  const isError = queries.some((query) => query.isError);
+  const data = queries.map((query) => query.data).filter((item) => item !== undefined);
+
+  return { data, isLoading, isError };
 }

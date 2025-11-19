@@ -1,19 +1,9 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { spacing } from '@/constants/theme';
-import { GetEventDetailsById } from '@/supabase/data/types';
 import { formatTime } from '@/utils/date';
 import { StyleSheet } from 'react-native';
 import { EventSection } from './EventSection';
-
-type TimeSlot = {
-    id: string;
-    start: string;
-    end: string;
-};
-
-type EventTimeListProps = {
-    times: GetEventDetailsById['times'];
-};
+import { EventTimeListProps, TimeSlot } from './types';
 
 export function EventTimeList({ times }: EventTimeListProps) {
     const timeList = times as TimeSlot[] | null;

@@ -35,7 +35,7 @@ export function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIP
           contentContainerStyle={styles.flatListContent}
           snapToInterval={snapInterval}
           snapToAlignment="center"
-          decelerationRate="fast"
+          decelerationRate="normal"
           disableIntervalMomentum={true}
           nestedScrollEnabled={true}
         />

@@ -3,21 +3,10 @@ import { ThemedView } from '@/components_2/core/ThemedView';
 import { FALLBACK_IMAGE_URL } from '@/constants/assets';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
-import { GetEventDetailsById } from '@/supabase/data/types';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
 import { EventSection } from './EventSection';
-
-type Performer = {
-    id: string;
-    name: string;
-    avatar_url?: string | null;
-    position?: string | null;
-};
-
-type EventPerformerListProps = {
-    performers: GetEventDetailsById['performers'];
-};
+import { EventPerformerListProps, Performer } from './types';
 
 export function EventPerformerList({ performers }: EventPerformerListProps) {
     const placeholderColor = useThemeColor('backgroundSecondary');
@@ -26,7 +15,7 @@ export function EventPerformerList({ performers }: EventPerformerListProps) {
         return null;
     }
 
-    const performerList = performers as Performer[];
+    const performerList = performers as unknown as Performer[];
 
     return (
         <EventSection title="出演者">

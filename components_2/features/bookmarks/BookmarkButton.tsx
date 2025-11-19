@@ -1,5 +1,5 @@
+import { BookmarkProps } from '@/components_2/features/bookmarks/types';
 import { useBookmark } from '@/components_2/features/bookmarks/useBookmark';
-import { BookmarkProps } from '@/constants/types';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
@@ -9,7 +9,7 @@ interface BookmarkButtonProps extends BookmarkProps {
 }
 
 export function BookmarkButton({ id, type, style }: BookmarkButtonProps) {
-    const { isBookmarked, toggleBookmark } = useBookmark(id, type);
+    const { isBookmarked, toggleBookmark } = useBookmark({ id, type });
     const iconColor = useThemeColor('textPrimary');
 
     return (

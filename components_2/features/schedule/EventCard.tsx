@@ -2,14 +2,10 @@ import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
 import { FALLBACK_IMAGE_URL } from '@/constants/assets';
 import { spacing } from '@/constants/theme';
-import { GetEventsListByTag } from '@/supabase/data/types';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { Pressable, StyleSheet, View } from 'react-native';
-
-type EventCardProps = {
-    item: GetEventsListByTag;
-};
+import { EventCardProps } from './types';
 
 export function EventCard({ item }: EventCardProps) {
     return (

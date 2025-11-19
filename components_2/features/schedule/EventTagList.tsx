@@ -4,18 +4,12 @@ import { ThemedText } from '@/components_2/core/ThemedText';
 import { spacing } from '@/constants/theme';
 import { useChunkedData } from '@/hooks/use-chunked-data';
 import { useGetEventsListByTag } from '@/supabase/data';
-import { GetEventsListByTag } from '@/supabase/data/types';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { EventColumn } from './EventColumn';
+import { EventTagListProps, EventTagListUIProps } from './types';
 
 const CHUNK_SIZE = 3;
-
-type EventTagListProps = {
-    targetTag: string;
-    title: string;
-    subtitle: string;
-};
 
 export function EventTagList({ targetTag, title, subtitle }: EventTagListProps) {
     const { data: originalData, isPending, isError } = useGetEventsListByTag(targetTag);
@@ -38,11 +32,7 @@ export function EventTagList({ targetTag, title, subtitle }: EventTagListProps) 
     );
 }
 
-type EventTagListUIProps = {
-    title: string;
-    subtitle: string;
-    chunkedData: GetEventsListByTag[][];
-};
+
 
 function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIProps) {
     const hasData = chunkedData && chunkedData.length > 0;
@@ -68,7 +58,7 @@ function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIProps) {
                     contentContainerStyle={styles.flatListContent}
                     snapToInterval={snapInterval}
                     snapToAlignment="center"
-                    decelerationRate="fast"
+                    decelerationRate="normal"
                     disableIntervalMomentum={true}
                     nestedScrollEnabled={true}
                 />

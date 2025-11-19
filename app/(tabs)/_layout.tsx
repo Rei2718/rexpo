@@ -3,7 +3,7 @@ import { Colors } from '@/constants/theme';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
-import { msHome, msHomeFill, msSchedule, msScheduleFill } from "@material-symbols-react-native/rounded-200";
+import { msBookmark, msBookmarkFill, msHome, msHomeFill, msSchedule, msScheduleFill } from "@material-symbols-react-native/rounded-200";
 import { MsIcon } from 'material-symbols-react-native';
 
 export default function TabLayout() {
@@ -42,6 +42,17 @@ export default function TabLayout() {
             focused
               ? <MsIcon icon={msScheduleFill} color={color} size={32} />
               : <MsIcon icon={msSchedule} color={color} size={32} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="bookmarks"
+        options={{
+          title: 'Bookmarks',
+          tabBarIcon: ({ color, focused }) => (
+            focused
+              ? <MsIcon icon={msBookmarkFill} color={color} size={32} />
+              : <MsIcon icon={msBookmark} color={color} size={32} />
           ),
         }}
       />

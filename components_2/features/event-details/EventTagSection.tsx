@@ -3,8 +3,9 @@ import { ThemedView } from '@/components_2/core/ThemedView';
 import { radii, spacing } from '@/constants/theme';
 import { Link } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import { EventTagSectionProps } from './types';
 
-export function EventTagSection({ tags }: { tags: string[] | null }) {
+export function EventTagSection({ tags }: EventTagSectionProps) {
     if (!tags) {
         return null;
     }

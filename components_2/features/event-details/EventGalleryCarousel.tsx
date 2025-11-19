@@ -3,10 +3,7 @@ import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
-
-interface EventGalleryCarouselProps {
-    imageUrls: (string | null | undefined)[];
-}
+import { EventGalleryCarouselProps } from './types';
 
 export default function EventGalleryCarousel({ imageUrls }: EventGalleryCarouselProps) {
     const { width: windowWidth } = useWindowDimensions();

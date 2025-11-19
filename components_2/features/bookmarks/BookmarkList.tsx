@@ -1,17 +1,22 @@
 import { ErrorComponent } from '@/components_2/core/ErrorComponent';
 import { LoadingComponent } from '@/components_2/core/LoadingComponent';
 import { ThemedText } from '@/components_2/core/ThemedText';
+import { useBookmark } from '@/components_2/features/bookmarks/useBookmark';
 import { EventCard } from '@/components_2/features/schedule/EventCard';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
-import { useGetEventsListByTag } from '@/supabase/data';
+import { useGetEventsByIds } from '@/supabase/data';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { EventTagListProps } from './types';
 
-export function EventTagList({ targetTag }: EventTagListProps) {
-    const { data, isPending, isError } = useGetEventsListByTag(targetTag);
+type BookmarkListProps = {
+    type: 'event' | 'food';
+};
 
-    if (isPending) {
+export function BookmarkList({ type }: BookmarkListProps) {
+    const { bookmarkedIds } = useBookmark({ id: '', type });
+    const { data, isLoading, isError } = useGetEventsByIds(bookmarkedIds);
+
+    if (isLoading) {
         return <LoadingComponent />;
     }
 
@@ -24,7 +29,7 @@ export function EventTagList({ targetTag }: EventTagListProps) {
     if (!hasData) {
         return (
             <View style={styles.emptyContainer}>
-                <ThemedText>「{targetTag}」に関連するイベントはありません。</ThemedText>
+                <ThemedText>ブックマークされたアイテムはありません。</ThemedText>
             </View>
         );
     }
@@ -32,8 +37,18 @@ export function EventTagList({ targetTag }: EventTagListProps) {
     return (
         <FlatList
             data={data}
-            renderItem={({ item }) => <EventCard item={item} />}
-            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+                <EventCard
+                    item={{
+                        id: item.event_public_id || '',
+                        title: item.title || '',
+                        overview_description: item.overview_description || '',
+                        logo_url: item.logo_url || '',
+                        // Add other necessary fields or handle nulls
+                    }}
+                />
+            )}
+            keyExtractor={(item) => item.event_public_id || Math.random().toString()}
             ItemSeparatorComponent={ListSeparator}
             contentContainerStyle={styles.flatListContent}
             showsVerticalScrollIndicator={false}
@@ -67,5 +82,6 @@ const styles = StyleSheet.create({
     },
     flatListContent: {
         padding: spacing.xl,
+        paddingTop: spacing.m,
     },
 });

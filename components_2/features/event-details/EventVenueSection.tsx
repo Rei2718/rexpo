@@ -1,9 +1,6 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { EventSection } from './EventSection';
-
-type EventVenueSectionProps = {
-    venueName?: string | null;
-};
+import { EventVenueSectionProps } from './types';
 
 export function EventVenueSection({ venueName }: EventVenueSectionProps) {
     if (!venueName) {

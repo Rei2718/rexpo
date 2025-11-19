@@ -1,32 +1,46 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState } from 'react';
+import { BookmarkProps } from './types';
 
-export function useBookmark(id: string, type: 'event' | 'food') {
+type UseBookmarkProps = {
+  id?: string;
+  type: BookmarkProps['type'];
+};
+
+export function useBookmark({ id, type }: UseBookmarkProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
   const storageKey = `bookmarks:${type}`;
+
+  const loadBookmarks = useCallback(async () => {
+    try {
+      const storedBookmarks = await AsyncStorage.getItem(storageKey);
+      if (storedBookmarks) {
+        const bookmarks = JSON.parse(storedBookmarks) as string[];
+        setBookmarkedIds(bookmarks);
+        if (id) {
+          setIsBookmarked(bookmarks.includes(id));
+        }
+      } else {
+        setBookmarkedIds([]);
+        setIsBookmarked(false);
+      }
+    } catch (error) {
+      console.error('Failed to load bookmarks', error);
+    }
+  }, [id, storageKey]);
 
   useEffect(() => {
     let isMounted = true;
-    const checkBookmarkStatus = async () => {
-      try {
-        const storedBookmarks = await AsyncStorage.getItem(storageKey);
-        if (storedBookmarks && isMounted) {
-          const bookmarks = JSON.parse(storedBookmarks) as string[];
-          setIsBookmarked(bookmarks.includes(id));
-        }
-      } catch (error) {
-        console.error('Failed to load bookmarks', error);
-      }
-    };
-
-    checkBookmarkStatus();
-
+    loadBookmarks();
     return () => {
       isMounted = false;
     };
-  }, [id, storageKey]);
+  }, [loadBookmarks]);
 
   const toggleBookmark = useCallback(async () => {
+    if (!id) return;
+
     // Optimistic update
     setIsBookmarked((prev) => !prev);
 
@@ -41,6 +55,7 @@ export function useBookmark(id: string, type: 'event' | 'food') {
       }
 
       await AsyncStorage.setItem(storageKey, JSON.stringify(bookmarks));
+      setBookmarkedIds(bookmarks); // Update local list
     } catch (error) {
       console.error('Failed to update bookmarks', error);
       // Revert on error
@@ -48,5 +63,5 @@ export function useBookmark(id: string, type: 'event' | 'food') {
     }
   }, [id, storageKey]);
 
-  return { isBookmarked, toggleBookmark };
+  return { isBookmarked, toggleBookmark, bookmarkedIds };
 }

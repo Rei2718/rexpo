@@ -1,17 +1,11 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
-import { SchedulePreset } from '@/constants/schedule-presets';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
-
-type PresetDropdownProps = {
-    presets: SchedulePreset[];
-    activePresetId: string;
-    onSelectPreset: (presetId: string) => void;
-};
+import { PresetDropdownProps } from './types';
 
 export function PresetDropdown({ presets, activePresetId, onSelectPreset }: PresetDropdownProps) {
     const [visible, setVisible] = useState(false);

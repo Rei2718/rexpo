@@ -1,12 +1,7 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { spacing } from '@/constants/theme';
 import { StyleSheet, View } from 'react-native';
-
-type EventHeaderProps = {
-    title?: string | null;
-    overview_description?: string | null;
-    sponsorTier?: string | null;
-};
+import { EventHeaderProps } from './types';
 
 export function EventHeader({
     title,

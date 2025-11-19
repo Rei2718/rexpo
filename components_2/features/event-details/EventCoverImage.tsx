@@ -2,11 +2,7 @@ import { Colors, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
-
-type EventCoverImageProps = {
-    coverImageUrl?: string | null;
-    logoUrl?: string | null;
-};
+import { EventCoverImageProps } from './types';
 
 export function EventCoverImage({ coverImageUrl, logoUrl }: EventCoverImageProps) {
     const placeholderColor = useThemeColor('backgroundSecondary');
