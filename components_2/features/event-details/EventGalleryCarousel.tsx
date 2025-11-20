@@ -1,4 +1,4 @@
-import { spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     itemContainer: {
         flex: 1,
-        borderRadius: spacing.xl,
+        borderRadius: radii.xl,
         marginLeft: spacing.xl,
         overflow: 'hidden',
     },

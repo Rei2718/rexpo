@@ -8,7 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { ThemedView } from '@/components_2/core/ThemedView';
-import { spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
 type Props = PropsWithChildren<{
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
         padding: spacing.xl,
         gap: spacing.l,
         overflow: 'hidden',
-        borderTopLeftRadius: spacing.xl,
-        borderTopRightRadius: spacing.xl,
+        borderTopLeftRadius: radii.xl,
+        borderTopRightRadius: radii.xl,
         marginTop: -spacing.xl,
     },
 });

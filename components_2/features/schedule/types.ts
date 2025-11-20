@@ -7,6 +7,7 @@ export interface EventCardProps {
 
 export interface EventColumnProps {
     items: GetEventsListByTag[];
+    width: number;
 }
 
 export interface EventTagListProps {

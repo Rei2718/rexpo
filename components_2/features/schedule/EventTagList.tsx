@@ -50,7 +50,7 @@ function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIProps) {
             {hasData ? (
                 <FlatList
                     data={chunkedData}
-                    renderItem={({ item }) => <EventColumn items={item} />}
+                    renderItem={({ item }) => <EventColumn items={item} width={itemWidth} />}
                     keyExtractor={(chunk) => chunk[0].id}
                     horizontal={true}
                     ItemSeparatorComponent={() => <View style={styles.separator} />}

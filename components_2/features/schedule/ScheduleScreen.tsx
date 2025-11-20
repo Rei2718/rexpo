@@ -6,19 +6,17 @@ import { PresetDropdown } from '@/components_2/features/schedule/PresetDropdown'
 import { SCHEDULE_PRESETS, SchedulePresetSection } from '@/constants/schedule-presets';
 import { spacing } from '@/constants/theme';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ScheduleHeader = ({
     activePresetId,
     onSelectPreset,
-    topInset,
 }: {
     activePresetId: string;
     onSelectPreset: (id: string) => void;
-    topInset: number;
 }) => (
-    <View style={{ paddingTop: topInset }}>
+    <View>
         <PresetDropdown
             presets={SCHEDULE_PRESETS}
             activePresetId={activePresetId}
@@ -27,14 +25,11 @@ const ScheduleHeader = ({
         <View style={styles.tabs}>
             <CategoryTabs />
         </View>
-        <View>
-            <CarouselContents />
-        </View>
+        <CarouselContents />
     </View>
 );
 
 export default function ScheduleScreen() {
-    const insets = useSafeAreaInsets();
     const [activePresetId, setActivePresetId] = useState(SCHEDULE_PRESETS[0].id);
     const activePreset = SCHEDULE_PRESETS.find((p) => p.id === activePresetId) || SCHEDULE_PRESETS[0];
 
@@ -55,6 +50,26 @@ export default function ScheduleScreen() {
 
     return (
         <ThemedView style={styles.container}>
+            <FlatList
+                data={activePreset.sections}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                ListHeaderComponent={
+                    <SafeAreaView edges={['top']}>
+                        <ScheduleHeader
+                            activePresetId={activePresetId}
+                            onSelectPreset={setActivePresetId}
+                        />
+                    </SafeAreaView>
+                }
+                ListHeaderComponentStyle={styles.headerComponent}
+                ListFooterComponent={<SafeAreaView edges={['bottom']} />}
+                ItemSeparatorComponent={() => <View style={styles.separator} />}
+                contentContainerStyle={{
+                    paddingBottom: spacing.xxl,
+                }}
+                showsVerticalScrollIndicator={false}
+            />
         </ThemedView>
     );
 }

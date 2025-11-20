@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
 import { FALLBACK_IMAGE_URL } from '@/constants/assets';
-import { spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         padding: spacing.xs,
-        borderRadius: spacing.xxl,
+        borderRadius: radii.pill,
     },
     leftContainer: {
         flexDirection: 'row',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     avatar: {
         width: spacing.xxl,
         height: spacing.xxl,
-        borderRadius: spacing.xxl,
+        borderRadius: radii.pill,
         marginRight: spacing.m,
     },
     rightContainer: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         paddingRight: spacing.l,
     },
     detailButton: {
-        borderRadius: 999,
+        borderRadius: radii.pill,
         paddingVertical: spacing.s,
         paddingHorizontal: spacing.xl,
         margin: spacing.xs,

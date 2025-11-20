@@ -1,6 +1,7 @@
 import { ThemedText } from "@/components_2/core/ThemedText";
 import { ThemedView } from "@/components_2/core/ThemedView";
-import { spacing, typography } from "@/constants/theme";
+import { CAROUSEL_DATA, CarouselItem } from "@/constants/carousel-data";
+import { radii, spacing, typography } from "@/constants/theme";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -11,36 +12,6 @@ import {
 } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 
-const carouselData = [
-    {
-        id: 1,
-        category: "NEW",
-        title: "iPhone 17 Pro",
-        subtitle: "Pro. Beyond.",
-        imageUrl: "https://picsum.photos/seed/dhtydyjgh/1080/1920",
-    },
-    {
-        id: 2,
-        category: "APPLE VISION PRO",
-        title: "Welcome to the era of spatial computing.",
-        subtitle: "Learn more.",
-        imageUrl: "https://picsum.photos/seed/dhtsdddfgh/1080/1920",
-    },
-    {
-        id: 3,
-        category: "MACBOOK AIR",
-        title: "Supercharged by M4.",
-        subtitle: "Impressively big. Impossibly thin.",
-        imageUrl: "https://picsum.photos/seed/dht18gh/1080/1920",
-    },
-    {
-        id: 4,
-        category: "WATCH",
-        title: "Series 11",
-        subtitle: "Smarter. Brighter. Mightier.",
-        imageUrl: "https://picsum.photos/seed/dhtvukv6h/1080/1920",
-    },
-];
 
 export default function CarouselContents() {
     const { width: windowWidth } = useWindowDimensions();
@@ -64,9 +35,9 @@ export default function CarouselContents() {
                 snapEnabled={true}
                 pagingEnabled={true}
                 autoPlayInterval={2000}
-                data={carouselData}
+                data={CAROUSEL_DATA}
                 style={styles.carousel}
-                renderItem={({ item }) => (
+                renderItem={({ item }: { item: CarouselItem }) => (
                     <ThemedView
                         colorName="backgroundPrimary"
                         style={styles.itemContainer}
@@ -116,7 +87,7 @@ const styles = StyleSheet.create({
     },
     itemContainer: {
         flex: 1,
-        borderRadius: spacing.xl,
+        borderRadius: radii.xl,
         marginLeft: spacing.xl,
         overflow: "hidden",
     },

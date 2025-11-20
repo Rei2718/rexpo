@@ -1,4 +1,4 @@
-import { Colors, spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
@@ -6,6 +6,7 @@ import { EventCoverImageProps } from './types';
 
 export function EventCoverImage({ coverImageUrl, logoUrl }: EventCoverImageProps) {
     const placeholderColor = useThemeColor('backgroundSecondary');
+    const logoFrameColor = useThemeColor("backgroundPrimary");
 
     if (!coverImageUrl) {
         return null;
@@ -22,7 +23,7 @@ export function EventCoverImage({ coverImageUrl, logoUrl }: EventCoverImageProps
                 transition={300}
             />
             {logoUrl && (
-                <View style={styles.logoFrame}>
+                <View style={[styles.logoFrame, { backgroundColor: logoFrameColor }]}>
                     <Image
                         source={{ uri: logoUrl }}
                         style={styles.logo}
@@ -46,13 +47,12 @@ const styles = StyleSheet.create({
         width: '100%',
         maxWidth: 500,
         aspectRatio: 1,
-        borderRadius: spacing.l,
+        borderRadius: radii.l,
     },
     logoFrame: {
         position: 'absolute',
         bottom: -spacing.xxl,
-        backgroundColor: Colors.light.textPrimary,
-        borderRadius: spacing.xl + spacing.xs,
+        borderRadius: radii.xl,
         padding: spacing.xs,
         alignItems: 'center',
         justifyContent: 'center',
@@ -61,6 +61,6 @@ const styles = StyleSheet.create({
     logo: {
         width: spacing.xxxxl,
         height: spacing.xxxxl,
-        borderRadius: spacing.xl,
+        borderRadius: radii.l,
     },
 });

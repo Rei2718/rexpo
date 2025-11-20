@@ -1,24 +1,12 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
-import { spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { Image } from 'expo-image';
 import React from 'react';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const MENU_ITEMS = [
-    { id: 'sessions', label: 'セッション' },
-    { id: 'speakers', label: 'スピーカー' },
-    { id: 'map', label: 'マップ' },
-    { id: 'info', label: 'お知らせ' },
-];
-
-const SPONSOR_LOGOS = [
-    'https://picsum.photos/seed/sponsor1/200/100',
-    'https://picsum.photos/seed/sponsor2/200/100',
-    'https://picsum.photos/seed/sponsor3/200/100',
-    'https://picsum.photos/seed/sponsor4/200/100',
-];
+import { MENU_ITEMS, SPONSOR_LOGOS } from '@/constants/home-data';
 
 export function HomeContent() {
     const { width } = useWindowDimensions();
@@ -76,7 +64,7 @@ const styles = StyleSheet.create({
         gap: spacing.xxl,
     },
     menuCard: {
-        borderRadius: spacing.m,
+        borderRadius: radii.l,
         overflow: 'hidden',
     },
     menuItem: {
@@ -102,7 +90,7 @@ const styles = StyleSheet.create({
     sponsorLogoContainer: {
         aspectRatio: 1.618,
         padding: spacing.m,
-        borderRadius: spacing.s,
+        borderRadius: radii.m,
         alignItems: 'center',
         justifyContent: 'center',
     },

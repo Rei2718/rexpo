@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
 import { FALLBACK_IMAGE_URL } from '@/constants/assets';
-import { spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { Pressable, StyleSheet, View } from 'react-native';
@@ -54,14 +54,14 @@ const styles = StyleSheet.create({
     image: {
         width: spacing.xxxl,
         height: spacing.xxxl,
-        borderRadius: 18,
+        borderRadius: radii.l,
     },
     textContainer: {
         flex: 1,
         marginHorizontal: spacing.m,
     },
     detailButton: {
-        borderRadius: 999,
+        borderRadius: radii.pill,
         paddingVertical: spacing.s,
         paddingHorizontal: spacing.xl,
         justifyContent: "center",

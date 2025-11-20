@@ -1,4 +1,4 @@
-import { spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         aspectRatio: 16 / 9,
-        borderRadius: spacing.s,
+        borderRadius: radii.m,
     },
 });

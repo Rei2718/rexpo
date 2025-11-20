@@ -23,6 +23,7 @@ export const Colors = {
     destructive: '#FF383C',
     success: '#34C759',
     warning: '#FF9500',
+    overlay: '#0D0D1280',
   },
   dark: {
     textPrimary: '#E5E5EA',
@@ -43,6 +44,7 @@ export const Colors = {
     destructive: '#FF453A',
     success: '#30D158',
     warning: '#FF9F0A',
+    overlay: '#0D0D1280',
   },
 };
 
@@ -92,7 +94,7 @@ export const typography = {
   h1: {
     fontSize: 32,
     lineHeight: 42,
-    fontWeight: "500",
+    fontWeight: "600",
   },
   h2: {
     fontSize: 21,

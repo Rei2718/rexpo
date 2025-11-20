@@ -27,9 +27,11 @@ export function BookmarkButton({ id, type, style }: BookmarkButtonProps) {
     );
 }
 
+import { spacing } from '@/constants/theme';
+
 const styles = StyleSheet.create({
     button: {
-        padding: 8,
+        padding: spacing.s,
         justifyContent: 'center',
         alignItems: 'center',
     },

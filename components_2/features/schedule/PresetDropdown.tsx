@@ -1,6 +1,6 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
-import { spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
@@ -13,6 +13,8 @@ export function PresetDropdown({ presets, activePresetId, onSelectPreset }: Pres
     const iconColor = useThemeColor('textPrimary');
     const backgroundColor = useThemeColor('backgroundSecondary');
 
+    const overlayColor = useThemeColor('overlay');
+
     const handleSelect = (presetId: string) => {
         onSelectPreset(presetId);
         setVisible(false);
@@ -20,10 +22,12 @@ export function PresetDropdown({ presets, activePresetId, onSelectPreset }: Pres
 
     return (
         <View>
-            <Pressable onPress={() => setVisible(true)} style={styles.trigger}>
-                <ThemedText type="h1">{activePreset.label}</ThemedText>
-                <Ionicons name="chevron-down" size={24} color={iconColor} />
-            </Pressable>
+            <View style={styles.trigger}>
+                <Pressable onPress={() => setVisible(true)} style={styles.content}>
+                    <ThemedText type="h1">{activePreset.label}</ThemedText>
+                    <Ionicons name="chevron-down" size={24} color={iconColor} />
+                </Pressable>
+            </View>
 
             <Modal
                 transparent
@@ -32,7 +36,7 @@ export function PresetDropdown({ presets, activePresetId, onSelectPreset }: Pres
                 animationType="fade"
                 onRequestClose={() => setVisible(false)}
             >
-                <Pressable style={styles.overlay} onPress={() => setVisible(false)}>
+                <Pressable style={[styles.overlay, { backgroundColor: overlayColor }]} onPress={() => setVisible(false)}>
                     <ThemedView style={styles.dropdown} colorName="backgroundPrimary">
                         {presets.map((preset) => (
                             <Pressable
@@ -58,33 +62,30 @@ export function PresetDropdown({ presets, activePresetId, onSelectPreset }: Pres
 
 const styles = StyleSheet.create({
     trigger: {
+        padding: spacing.xl,
+        paddingBottom: spacing.xxl,
+        alignItems: 'flex-start',
+    },
+    content: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: spacing.xs,
-        padding: spacing.xl,
-        paddingBottom: spacing.xxl,
     },
     overlay: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: 'center',
         alignItems: 'center',
     },
     dropdown: {
         width: '80%',
-        borderRadius: spacing.m,
+        borderRadius: radii.m,
         padding: spacing.s,
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
     },
     item: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: spacing.m,
-        borderRadius: spacing.s,
+        borderRadius: radii.s,
     },
 });

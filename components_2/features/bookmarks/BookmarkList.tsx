@@ -45,7 +45,6 @@ export function BookmarkList({ type }: BookmarkListProps) {
                         title: item.title || '',
                         overview_description: item.overview_description || '',
                         logo_url: item.logo_url || '',
-                        // Add other necessary fields or handle nulls
                     }}
                 />
             )}
@@ -84,6 +83,5 @@ const styles = StyleSheet.create({
     },
     flatListContent: {
         padding: spacing.xl,
-        paddingTop: spacing.m,
     },
 });
