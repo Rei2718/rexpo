@@ -1,5 +1,5 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
-import { getEventDetailsById, getEventsListByTag } from "./function";
+import { getEventDetailsById, getEventsByVenueId, getEventsListByTag, getVenues } from "./function";
 import { keys } from "./keys";
 import { Tag } from "./types";
 
@@ -35,4 +35,21 @@ export function useGetEventsByIds(ids: string[]) {
   const data = queries.map((query) => query.data).filter((item) => item !== undefined);
 
   return { data, isLoading, isError };
+}
+
+export function useGetVenues() {
+  const { data, isPending, isError } = useQuery({
+    queryKey: keys.getVenues(),
+    queryFn: () => getVenues(),
+  });
+  return { data, isPending, isError };
+}
+
+export function useGetEventsByVenue(id: string) {
+  const { data, isPending, isError } = useQuery({
+    queryKey: keys.getEventsByVenueId(id),
+    queryFn: () => getEventsByVenueId(id),
+    enabled: !!id,
+  });
+  return { data, isPending, isError };
 }

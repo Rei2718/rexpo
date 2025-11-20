@@ -1,9 +1,10 @@
+
 import { HapticTab } from '@/components_2/core/HapticTab';
 import { Colors } from '@/constants/theme';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
-import { msBookmark, msBookmarkFill, msHome, msHomeFill, msSchedule, msScheduleFill } from "@material-symbols-react-native/rounded-200";
+import { msBookmark, msBookmarkFill, msHome, msHomeFill, msPinDrop, msPinDropFill, msSchedule, msScheduleFill } from "@material-symbols-react-native/rounded-200";
 import { MsIcon } from 'material-symbols-react-native';
 
 export default function TabLayout() {
@@ -42,6 +43,17 @@ export default function TabLayout() {
             focused
               ? <MsIcon icon={msScheduleFill} color={color} size={32} />
               : <MsIcon icon={msSchedule} color={color} size={32} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="map"
+        options={{
+          title: 'Map',
+          tabBarIcon: ({ color, focused }) => (
+            focused
+              ? <MsIcon icon={msPinDropFill} color={color} size={32} />
+              : <MsIcon icon={msPinDrop} color={color} size={32} />
           ),
         }}
       />
