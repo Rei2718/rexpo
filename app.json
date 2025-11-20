@@ -10,7 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ichiro1173.rexpo"
+      "bundleIdentifier": "com.ichiro1173.rexpo",
+      "config": {
+        "googleMapsApiKey": "AIzaSyDh75QEXVeB0vlKjYB6TKq3waYk5-PgdyA"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +24,12 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.ichiro1173.rexpo"
+      "package": "com.ichiro1173.rexpo",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDh75QEXVeB0vlKjYB6TKq3waYk5-PgdyA"
+        }
+      }
     },
     "web": {
       "output": "static",

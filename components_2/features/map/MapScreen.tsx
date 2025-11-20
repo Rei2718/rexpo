@@ -1,11 +1,12 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
 import { Colors, spacing } from '@/constants/theme';
+import { useGetVenues } from '@/supabase/data';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { useMemo, useRef, useState } from 'react';
 import { StyleSheet, useColorScheme, View } from 'react-native';
+import { MapComponent } from './MapComponent';
 import { VenueEventList } from './VenueEventList';
-import { VenueGrid } from './VenueGrid';
 
 export function MapScreen() {
     const [selectedVenueId, setSelectedVenueId] = useState<string | null>(null);
@@ -13,6 +14,7 @@ export function MapScreen() {
     const snapPoints = useMemo(() => ['10%', '40%', '90%'], []);
     const colorScheme = useColorScheme() ?? 'light';
     const theme = Colors[colorScheme];
+    const { data: venues } = useGetVenues();
 
     const handleVenueSelect = (venueId: string) => {
         setSelectedVenueId(venueId);
@@ -22,9 +24,10 @@ export function MapScreen() {
 
     return (
         <ThemedView style={styles.container}>
-            {/* Background Content: Venue Grid */}
+            {/* Background Content: Map Component */}
             <View style={styles.mapContainer}>
-                <VenueGrid
+                <MapComponent
+                    venues={venues}
                     onVenueSelect={handleVenueSelect}
                     selectedVenueId={selectedVenueId ?? undefined}
                 />
