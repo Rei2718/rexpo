@@ -12,7 +12,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.ichiro1173.rexpo",
       "config": {
-        "googleMapsApiKey": "AIzaSyDh75QEXVeB0vlKjYB6TKq3waYk5-PgdyA"
+        "googleMapsApiKey": "AIzaSyC6RDYdXZQUnGgWbs2zYoHUVq0FKLdp5uU"
       }
     },
     "android": {
@@ -51,7 +51,13 @@
       ],
       "expo-sqlite",
       "expo-secure-store",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

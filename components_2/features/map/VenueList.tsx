@@ -40,17 +40,24 @@ export function VenueList({ onVenueSelect, selectedVenueId }: VenueListProps) {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => {
                     const isSelected = item.id === selectedVenueId;
+                    const itemStyles = {
+                        container: {
+                            backgroundColor: isSelected ? activeBackgroundColor : inactiveBackgroundColor,
+                        },
+                        text: isSelected ? { color: activeTextColor } : undefined,
+                    };
+
                     return (
                         <Pressable onPress={() => onVenueSelect(item)}>
                             <ThemedView
                                 style={[
                                     styles.item,
-                                    { backgroundColor: isSelected ? activeBackgroundColor : inactiveBackgroundColor }
+                                    itemStyles.container
                                 ]}
                             >
                                 <ThemedText
                                     type="label"
-                                    style={isSelected ? { color: activeTextColor } : undefined}
+                                    style={itemStyles.text}
                                 >
                                     {item.name}
                                 </ThemedText>

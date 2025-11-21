@@ -15,19 +15,23 @@ const ScheduleHeader = ({
 }: {
     activePresetId: string;
     onSelectPreset: (id: string) => void;
-}) => (
-    <View>
-        <PresetDropdown
-            presets={SCHEDULE_PRESETS}
-            activePresetId={activePresetId}
-            onSelectPreset={onSelectPreset}
-        />
-        <View style={styles.tabs}>
-            <CategoryTabs />
+}) => {
+    return (
+        <View>
+            <View style={styles.headerTop}>
+                <PresetDropdown
+                    presets={SCHEDULE_PRESETS}
+                    activePresetId={activePresetId}
+                    onSelectPreset={onSelectPreset}
+                />
+            </View>
+            <View style={styles.tabs}>
+                <CategoryTabs />
+            </View>
+            <CarouselContents />
         </View>
-        <CarouselContents />
-    </View>
-);
+    );
+};
 
 export default function ScheduleScreen() {
     const [activePresetId, setActivePresetId] = useState(SCHEDULE_PRESETS[0].id);
@@ -77,6 +81,12 @@ export default function ScheduleScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    headerTop: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingRight: spacing.xl,
     },
     tabs: {
         paddingBottom: spacing.l,

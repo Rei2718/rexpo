@@ -46,11 +46,17 @@ export function VenueEventList({ venueId }: VenueEventListProps) {
 
 const ListSeparator = () => {
     const separatorColor = useThemeColor("backgroundTertiary");
+    const dynamicStyles = {
+        separator: {
+            borderBottomColor: separatorColor,
+        },
+    };
+
     return (
         <View
             style={[
                 styles.separator,
-                { borderBottomColor: separatorColor },
+                dynamicStyles.separator,
             ]}
         />
     );

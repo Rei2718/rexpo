@@ -10,10 +10,18 @@ export const getMapStyle = (theme: typeof Colors.light) => [
         ]
     },
     {
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
         "elementType": "labels.text.fill",
         "stylers": [
             {
-                "color": theme.textSecondary
+                "visibility": "off"
             }
         ]
     },
@@ -21,7 +29,16 @@ export const getMapStyle = (theme: typeof Colors.light) => [
         "elementType": "labels.text.stroke",
         "stylers": [
             {
-                "color": theme.backgroundPrimary
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "visibility": "off"
             }
         ]
     },
@@ -38,29 +55,10 @@ export const getMapStyle = (theme: typeof Colors.light) => [
         ]
     },
     {
-        "featureType": "administrative.land_parcel",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": theme.textTertiary
-            }
-        ]
-    },
-    {
         "featureType": "poi",
-        "elementType": "geometry",
         "stylers": [
             {
-                "color": theme.backgroundPrimary
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": theme.textSecondary
+                "visibility": "off"
             }
         ]
     },
@@ -92,29 +90,19 @@ export const getMapStyle = (theme: typeof Colors.light) => [
         ]
     },
     {
-        "featureType": "road.local",
-        "elementType": "labels.text.fill",
+        "featureType": "road",
+        "elementType": "labels",
         "stylers": [
             {
-                "color": theme.textTertiary
+                "visibility": "off"
             }
         ]
     },
     {
-        "featureType": "transit.line",
-        "elementType": "geometry",
+        "featureType": "transit",
         "stylers": [
             {
-                "color": theme.separator
-            }
-        ]
-    },
-    {
-        "featureType": "transit.station",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": theme.backgroundPrimary
+                "visibility": "off"
             }
         ]
     },
@@ -129,10 +117,10 @@ export const getMapStyle = (theme: typeof Colors.light) => [
     },
     {
         "featureType": "water",
-        "elementType": "labels.text.fill",
+        "elementType": "labels",
         "stylers": [
             {
-                "color": theme.textPrimary
+                "visibility": "off"
             }
         ]
     }
