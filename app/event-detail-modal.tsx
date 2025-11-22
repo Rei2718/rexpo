@@ -49,7 +49,7 @@ export default function EventDetailModal() {
         options={{
           headerShown: true,
           headerTransparent: false,
-          headerTitle: data.title || '',
+          headerTitle: '',
           headerStyle: { backgroundColor: headerBackgroundColor },
           headerTintColor: headerTextColor,
           headerRight: () => <BookmarkButton id={id} type="event" />,

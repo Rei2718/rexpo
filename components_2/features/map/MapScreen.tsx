@@ -7,8 +7,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { StyleSheet, View, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FloorSelector } from './FloorSelector';
 import MapComponent from './MapComponent';
 import { VenueEventList } from './VenueEventList';
+
+const SNAP_POINTS = ['30%', '90%'];
+const FLOORS = ['1F', '2F'];
 
 export default function MapScreen() {
     const colorScheme = useColorScheme() ?? 'light';
@@ -16,74 +20,95 @@ export default function MapScreen() {
     const insets = useSafeAreaInsets();
     const { data: venues } = useGetVenues();
     const [selectedVenueId, setSelectedVenueId] = useState<string | undefined>(undefined);
-    const [errorMsg, setErrorMsg] = useState<string | null>(null);
-
-    // Bottom Sheet Refs
+    const [selectedFloor, setSelectedFloor] = useState('1F');
     const bottomSheetRef = useRef<BottomSheet>(null);
-    const snapPoints = useMemo(() => ['30%', '90%'], []);
 
-    useEffect(() => {
-        (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-            }
-        })();
-    }, []);
+    useLocationPermission();
 
     const handleVenueSelect = useCallback((venueId: string) => {
         setSelectedVenueId(venueId);
-        bottomSheetRef.current?.snapToIndex(1);
+        bottomSheetRef.current?.snapToIndex(0);
     }, []);
 
-    const backgroundStyle = {
-        backgroundColor: theme.backgroundPrimary,
-    };
+    const snapPoints = useMemo(() => SNAP_POINTS, []);
 
-    const handleIndicatorStyle = {
-        backgroundColor: theme.icon,
-    };
+    const filteredVenues = useMemo(() => {
+        if (!venues) return [];
+        return venues.filter(venue => {
+            if (!venue.floor) return false;
+            const floorStr = String(venue.floor);
+            // Match '1F' with '1F', '1', or 1
+            return floorStr === selectedFloor || floorStr + 'F' === selectedFloor;
+        });
+    }, [venues, selectedFloor]);
 
-    const dynamicStyles = {
-        contentContainer: {
-            backgroundColor: theme.backgroundPrimary,
-        },
-        emptyStateText: {
-            color: theme.textSecondary,
-        },
-    };
+    const selectedVenue = useMemo(() => {
+        return venues?.find(v => v.id === selectedVenueId);
+    }, [venues, selectedVenueId]);
 
     return (
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.mapContainer}>
                 <MapComponent
-                    venues={venues}
+                    venues={filteredVenues}
                     onVenueSelect={handleVenueSelect}
                     selectedVenueId={selectedVenueId}
                 />
+                <View style={[styles.floorSelectorContainer, { top: insets.top + spacing.m }]}>
+                    <FloorSelector
+                        selectedFloor={selectedFloor}
+                        onSelectFloor={setSelectedFloor}
+                        floors={FLOORS}
+                    />
+                </View>
             </View>
 
             <BottomSheet
                 ref={bottomSheetRef}
-                index={1}
+                index={0}
                 snapPoints={snapPoints}
-                backgroundStyle={backgroundStyle}
-                handleIndicatorStyle={handleIndicatorStyle}
+                backgroundStyle={{ backgroundColor: theme.backgroundPrimary }}
+                handleIndicatorStyle={{ backgroundColor: theme.icon }}
                 topInset={insets.top}
+                enableDynamicSizing={false}
             >
-                <BottomSheetView style={[styles.contentContainer, dynamicStyles.contentContainer]}>
-                    {selectedVenueId ? (
-                        <VenueEventList venueId={selectedVenueId} />
+                <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.backgroundPrimary }]}>
+                    {selectedVenueId && selectedVenue ? (
+                        <>
+                            <View style={styles.venueHeader}>
+                                <ThemedText type="h3">{selectedVenue.name}</ThemedText>
+                                {selectedVenue.description && (
+                                    <ThemedText type="body" style={{ color: theme.textSecondary }}>
+                                        {selectedVenue.description}
+                                    </ThemedText>
+                                )}
+                            </View>
+                            <VenueEventList venueId={selectedVenueId} />
+                        </>
                     ) : (
-                        <View style={styles.emptyState}>
-                            <ThemedText type="label" style={dynamicStyles.emptyStateText}>
-                                {errorMsg ? errorMsg : "まだ何も選択されていません"}
-                            </ThemedText>
-                        </View>
+                        <EmptyState theme={theme} />
                     )}
                 </BottomSheetView>
             </BottomSheet>
         </GestureHandlerRootView>
+    );
+}
+
+function useLocationPermission() {
+    useEffect(() => {
+        (async () => {
+            await Location.requestForegroundPermissionsAsync();
+        })();
+    }, []);
+}
+
+function EmptyState({ theme }: { theme: typeof Colors.light }) {
+    return (
+        <View style={styles.emptyState}>
+            <ThemedText type="label" style={{ color: theme.textSecondary }}>
+                まだ何も選択されていません
+            </ThemedText>
+        </View>
     );
 }
 
@@ -92,11 +117,20 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     mapContainer: {
-        flex: 1,
+        height: '76%',
+        width: '100%',
+    },
+    floorSelectorContainer: {
+        position: 'absolute',
+        right: spacing.m,
     },
     contentContainer: {
         flex: 1,
         padding: spacing.m,
+    },
+    venueHeader: {
+        marginBottom: spacing.m,
+        gap: spacing.xs,
     },
     emptyState: {
         flex: 1,

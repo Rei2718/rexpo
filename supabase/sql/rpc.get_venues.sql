@@ -2,6 +2,8 @@ CREATE OR REPLACE FUNCTION get_venues()
 RETURNS TABLE (
   id uuid,
   name text,
+  description text,
+  floor text,
   map_latitude float8,
   map_longitude float8
 )
@@ -13,6 +15,8 @@ AS $$
   SELECT
     id,
     name,
+    description,
+    floor,
     map_latitude,
     map_longitude
   FROM public.venue

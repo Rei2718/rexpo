@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     logoFrame: {
         position: 'absolute',
         bottom: -spacing.xxl,
-        borderRadius: radii.xl,
+        borderRadius: radii.xl - spacing.xs,
         padding: spacing.xs,
         alignItems: 'center',
         justifyContent: 'center',

@@ -22,9 +22,7 @@ export function VenueEventList({ venueId }: VenueEventListProps) {
         return <ErrorComponent />;
     }
 
-    const hasData = data && data.length > 0;
-
-    if (!hasData) {
+    if (!data || data.length === 0) {
         return (
             <View style={styles.emptyContainer}>
                 <ThemedText>この会場に関連するイベントはありません。</ThemedText>
@@ -46,20 +44,7 @@ export function VenueEventList({ venueId }: VenueEventListProps) {
 
 const ListSeparator = () => {
     const separatorColor = useThemeColor("backgroundTertiary");
-    const dynamicStyles = {
-        separator: {
-            borderBottomColor: separatorColor,
-        },
-    };
-
-    return (
-        <View
-            style={[
-                styles.separator,
-                dynamicStyles.separator,
-            ]}
-        />
-    );
+    return <View style={[styles.separator, { borderBottomColor: separatorColor }]} />;
 };
 
 const styles = StyleSheet.create({

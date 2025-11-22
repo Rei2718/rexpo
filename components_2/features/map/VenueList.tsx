@@ -13,13 +13,10 @@ interface VenueListProps {
 
 export function VenueList({ onVenueSelect, selectedVenueId }: VenueListProps) {
     const { data: venues, isPending, isError } = useGetVenues();
-    const activeBackgroundColor = useThemeColor("accent");
-    const inactiveBackgroundColor = useThemeColor("backgroundTertiary");
-    const activeTextColor = useThemeColor("backgroundPrimary");
 
     if (isPending) {
         return (
-            <View style={styles.loadingContainer}>
+            <View style={styles.centerContainer}>
                 <ThemedText>Loading...</ThemedText>
             </View>
         );
@@ -27,7 +24,7 @@ export function VenueList({ onVenueSelect, selectedVenueId }: VenueListProps) {
 
     if (isError) {
         return (
-            <View style={styles.loadingContainer}>
+            <View style={styles.centerContainer}>
                 <ThemedText>Error loading venues</ThemedText>
             </View>
         );
@@ -38,45 +35,54 @@ export function VenueList({ onVenueSelect, selectedVenueId }: VenueListProps) {
             <FlatList
                 data={venues}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => {
-                    const isSelected = item.id === selectedVenueId;
-                    const itemStyles = {
-                        container: {
-                            backgroundColor: isSelected ? activeBackgroundColor : inactiveBackgroundColor,
-                        },
-                        text: isSelected ? { color: activeTextColor } : undefined,
-                    };
-
-                    return (
-                        <Pressable onPress={() => onVenueSelect(item)}>
-                            <ThemedView
-                                style={[
-                                    styles.item,
-                                    itemStyles.container
-                                ]}
-                            >
-                                <ThemedText
-                                    type="label"
-                                    style={itemStyles.text}
-                                >
-                                    {item.name}
-                                </ThemedText>
-                            </ThemedView>
-                        </Pressable>
-                    );
-                }}
+                renderItem={({ item }) => (
+                    <VenueListItem
+                        item={item}
+                        isSelected={item.id === selectedVenueId}
+                        onSelect={onVenueSelect}
+                    />
+                )}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.listContent}
-                ItemSeparatorComponent={() => <View style={styles.separator} />}
+                ItemSeparatorComponent={Separator}
             />
         </View>
     );
 }
 
+function VenueListItem({ item, isSelected, onSelect }: { item: GetVenues; isSelected: boolean; onSelect: (venue: GetVenues) => void }) {
+    const activeBackgroundColor = useThemeColor("accent");
+    const inactiveBackgroundColor = useThemeColor("backgroundTertiary");
+    const activeTextColor = useThemeColor("backgroundPrimary");
+    const inactiveTextColor = useThemeColor("textPrimary");
+
+    return (
+        <Pressable onPress={() => onSelect(item)}>
+            <ThemedView
+                style={[
+                    styles.item,
+                    { backgroundColor: isSelected ? activeBackgroundColor : inactiveBackgroundColor }
+                ]}
+            >
+                <ThemedText
+                    type="label"
+                    style={{ color: isSelected ? activeTextColor : inactiveTextColor }}
+                >
+                    {item.name}
+                </ThemedText>
+            </ThemedView>
+        </Pressable>
+    );
+}
+
+const Separator = () => <View style={styles.separator} />;
+
 const styles = StyleSheet.create({
-    loadingContainer: {
+    centerContainer: {
         padding: spacing.m,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     item: {
         paddingHorizontal: spacing.l,

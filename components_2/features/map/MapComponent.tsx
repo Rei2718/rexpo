@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { Colors, radii, spacing } from '@/constants/theme';
 import React, { useMemo, useRef } from 'react';
-import { Dimensions, StyleSheet, View, useColorScheme } from 'react-native';
+import { StyleSheet, View, useColorScheme, useWindowDimensions } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { getMapStyle } from './mapStyle';
 import { MapComponentProps } from './types';
@@ -13,13 +13,14 @@ export default function MapComponent({ venues, onVenueSelect, selectedVenueId }:
 
     const mapRef = useRef<MapView>(null);
     const initialRegion = {
-        latitude: 43.056950,
-        longitude: 141.389245,
+        latitude: 43.057447,
+        longitude: 141.388781,
         latitudeDelta: 0.005,
         longitudeDelta: 0.005,
     };
 
-    const PAN_LIMIT = 0.005;
+    const PAN_LIMIT = 0.0005;
+    const { height } = useWindowDimensions();
 
     const setBoundaries = () => {
         if (mapRef.current) {
@@ -37,24 +38,11 @@ export default function MapComponent({ venues, onVenueSelect, selectedVenueId }:
         }
     };
 
-    const { height } = Dimensions.get('window');
-    const bottomPadding = height * 0.1 + spacing.m; // 10% bottom sheet + buffer
-
-    const dynamicStyles = {
-        calloutContainer: {
-            backgroundColor: theme.backgroundPrimary,
-            borderColor: theme.separator,
-        },
-        text: {
-            color: theme.textPrimary,
-        },
-    };
-
     return (
         <View style={styles.container}>
             <MapView
                 ref={mapRef}
-                provider={PROVIDER_GOOGLE} // Explicitly use Google Maps on iOS and Android
+                provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 region={initialRegion}
                 showsUserLocation={true}
@@ -66,21 +54,26 @@ export default function MapComponent({ venues, onVenueSelect, selectedVenueId }:
                 onMapReady={setBoundaries}
                 // @ts-ignore: minZoomLevel is deprecated for Apple Maps but required for Google Maps
                 minZoomLevel={18}
-                mapPadding={{ top: 0, right: 0, bottom: bottomPadding, left: spacing.m }}
+                mapPadding={{
+                    top: 0,
+                    right: 0,
+                    bottom: height * 0.05,
+                    left: spacing.m,
+                }}
             >
                 {venues?.map((venue) => (
                     <Marker
                         key={venue.id}
                         coordinate={{
-                            latitude: venue.map_latitude ?? 0,
-                            longitude: venue.map_longitude ?? 0,
+                            latitude: venue.map_latitude,
+                            longitude: venue.map_longitude,
                         }}
                         onPress={() => onVenueSelect(venue.id)}
-                        pinColor={selectedVenueId === venue.id ? theme.accent : theme.icon}
+                        pinColor={theme.textSecondary}
                     >
                         <Callout tooltip>
-                            <View style={[styles.calloutContainer, dynamicStyles.calloutContainer]}>
-                                <ThemedText type="label" style={dynamicStyles.text}>
+                            <View style={styles.calloutContainer}>
+                                <ThemedText type="label">
                                     {venue.name}
                                 </ThemedText>
                             </View>
@@ -88,7 +81,7 @@ export default function MapComponent({ venues, onVenueSelect, selectedVenueId }:
                     </Marker>
                 ))}
             </MapView>
-        </View>
+        </View >
     );
 }
 
