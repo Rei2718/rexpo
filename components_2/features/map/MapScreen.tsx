@@ -1,7 +1,8 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
-import { Colors, spacing } from '@/constants/theme';
+import { spacing } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
 import { useGetVenues } from '@/supabase/data';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet from '@gorhom/bottom-sheet';
 import * as Location from 'expo-location';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View, useColorScheme } from 'react-native';
@@ -11,12 +12,13 @@ import { FloorSelector } from './FloorSelector';
 import MapComponent from './MapComponent';
 import { VenueEventList } from './VenueEventList';
 
-const SNAP_POINTS = ['30%', '90%'];
+const SNAP_POINTS = ['30%', '60%'];
 const FLOORS = ['1F', '2F'];
 
 export default function MapScreen() {
     const colorScheme = useColorScheme() ?? 'light';
-    const theme = Colors[colorScheme];
+    const theme = useThemeColor('backgroundPrimary');
+    const iconColor = useThemeColor('icon');
     const insets = useSafeAreaInsets();
     const { data: venues } = useGetVenues();
     const [selectedVenueId, setSelectedVenueId] = useState<string | undefined>(undefined);
@@ -46,6 +48,20 @@ export default function MapScreen() {
         return venues?.find(v => v.id === selectedVenueId);
     }, [venues, selectedVenueId]);
 
+    const renderHeader = useCallback(() => {
+        if (!selectedVenue) return null;
+        return (
+            <View style={styles.venueHeader}>
+                <ThemedText type="h2">{selectedVenue.name}</ThemedText>
+                {selectedVenue.description && (
+                    <ThemedText type="body" colorName="textSecondary">
+                        {selectedVenue.description}
+                    </ThemedText>
+                )}
+            </View>
+        );
+    }, [selectedVenue]);
+
     return (
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.mapContainer}>
@@ -67,28 +83,21 @@ export default function MapScreen() {
                 ref={bottomSheetRef}
                 index={0}
                 snapPoints={snapPoints}
-                backgroundStyle={{ backgroundColor: theme.backgroundPrimary }}
-                handleIndicatorStyle={{ backgroundColor: theme.icon }}
+                backgroundStyle={{ backgroundColor: theme }}
+                handleIndicatorStyle={{ backgroundColor: iconColor }}
                 topInset={insets.top}
                 enableDynamicSizing={false}
             >
-                <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.backgroundPrimary }]}>
+                <View style={styles.contentContainer}>
                     {selectedVenueId && selectedVenue ? (
-                        <View style={styles.sheetContainer}>
-                            <View style={styles.venueHeader}>
-                                <ThemedText type="h2">{selectedVenue.name}</ThemedText>
-                                {selectedVenue.description && (
-                                    <ThemedText type="body" style={{ color: theme.textSecondary }}>
-                                        {selectedVenue.description}
-                                    </ThemedText>
-                                )}
-                            </View>
-                            <VenueEventList venueId={selectedVenueId} />
-                        </View>
+                        <VenueEventList
+                            venueId={selectedVenueId}
+                            ListHeaderComponent={renderHeader()}
+                        />
                     ) : (
-                        <EmptyState theme={theme} />
+                        <EmptyState />
                     )}
-                </BottomSheetView>
+                </View>
             </BottomSheet>
         </GestureHandlerRootView>
     );
@@ -102,10 +111,10 @@ function useLocationPermission() {
     }, []);
 }
 
-function EmptyState({ theme }: { theme: typeof Colors.light }) {
+function EmptyState() {
     return (
         <View style={styles.emptyState}>
-            <ThemedText type="label" style={{ color: theme.textSecondary }}>
+            <ThemedText type="label" colorName="textSecondary">
                 まだ何も選択されていません
             </ThemedText>
         </View>
@@ -127,13 +136,11 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
     },
-    sheetContainer: {
-        gap: spacing.xl,
-        paddingVertical: spacing.xl,
-    },
     venueHeader: {
         paddingHorizontal: spacing.xl,
         gap: spacing.xs,
+        paddingBottom: spacing.xl,
+        paddingTop: spacing.m,
     },
     emptyState: {
         flex: 1,

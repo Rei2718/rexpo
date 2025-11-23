@@ -53,6 +53,7 @@ export default function EventDetailModal() {
           headerStyle: { backgroundColor: headerBackgroundColor },
           headerTintColor: headerTextColor,
           headerRight: () => <BookmarkButton id={id} type="event" />,
+          headerShadowVisible: false,
         }}
       />
       <ScrollView

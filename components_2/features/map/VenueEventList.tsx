@@ -3,13 +3,16 @@ import { EventCard } from '@/components_2/features/exploration/EventCard';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { useGetEventsByVenue } from '@/supabase/data';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 interface VenueEventListProps {
     venueId: string;
+    ListHeaderComponent?: React.ReactElement | null;
 }
 
-export function VenueEventList({ venueId }: VenueEventListProps) {
+export function VenueEventList({ venueId, ListHeaderComponent }: VenueEventListProps) {
     const { data, isPending, isError } = useGetEventsByVenue(venueId);
 
     if (isPending) {
@@ -18,13 +21,14 @@ export function VenueEventList({ venueId }: VenueEventListProps) {
 
 
     return (
-        <FlatList
+        <BottomSheetFlatList
             data={data}
-            renderItem={({ item }) => <EventCard item={item} />}
-            keyExtractor={(item) => item.id}
+            renderItem={({ item }: { item: any }) => <EventCard item={item} />}
+            keyExtractor={(item: any) => item.id}
             ItemSeparatorComponent={ListSeparator}
             contentContainerStyle={styles.flatListContent}
             showsVerticalScrollIndicator={false}
+            ListHeaderComponent={ListHeaderComponent}
         />
     );
 }
@@ -48,5 +52,6 @@ const styles = StyleSheet.create({
     },
     flatListContent: {
         paddingHorizontal: spacing.xl,
+        paddingBottom: spacing.xl,
     },
 });

@@ -33,6 +33,22 @@ const persister = createAsyncStoragePersister({
   storage: AsyncStorage,
 });
 
+const CustomDarkTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    background: Colors.dark.backgroundPrimary,
+  },
+};
+
+const CustomDefaultTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: Colors.light.backgroundPrimary,
+  },
+};
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
@@ -43,7 +59,7 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}>
       <PersistQueryClientProvider
         client={queryClient}
         persistOptions={{ persister }}

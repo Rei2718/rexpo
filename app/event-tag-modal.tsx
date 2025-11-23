@@ -28,6 +28,7 @@ export default function EventTagModal() {
           headerTitle: tagName,
           headerStyle: { backgroundColor: headerBackgroundColor },
           headerTintColor: headerTextColor,
+          headerShadowVisible: false,
         }}
       />
       <EventTagList targetTag={tagName} />

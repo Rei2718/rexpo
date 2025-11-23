@@ -1,7 +1,9 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
-import { Colors, radii, spacing } from '@/constants/theme';
+import { ThemedView } from '@/components_2/core/ThemedView';
+import { radii, spacing } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
 import React from 'react';
-import { Pressable, StyleSheet, View, useColorScheme } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 
 interface FloorSelectorProps {
     selectedFloor: string;
@@ -10,11 +12,12 @@ interface FloorSelectorProps {
 }
 
 export function FloorSelector({ selectedFloor, onSelectFloor, floors }: FloorSelectorProps) {
-    const colorScheme = useColorScheme() ?? 'light';
-    const theme = Colors[colorScheme];
+    const backgroundPrimary = useThemeColor('backgroundPrimary');
+    const accent = useThemeColor('accent');
+    const textPrimary = useThemeColor('textPrimary');
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.backgroundPrimary }]}>
+        <ThemedView style={styles.container} colorName="backgroundPrimary">
             {floors.map((floor, index) => {
                 const isSelected = floor === selectedFloor;
                 return (
@@ -23,26 +26,25 @@ export function FloorSelector({ selectedFloor, onSelectFloor, floors }: FloorSel
                             onPress={() => onSelectFloor(floor)}
                             style={[
                                 styles.button,
-                                isSelected && { backgroundColor: theme.accent }
+                                isSelected && { backgroundColor: accent }
                             ]}
                         >
                             <ThemedText
                                 type="label"
                                 style={[
-                                    styles.text,
-                                    isSelected ? { color: theme.backgroundPrimary } : { color: theme.textPrimary }
+                                    isSelected ? { color: backgroundPrimary } : { color: textPrimary }
                                 ]}
                             >
                                 {floor}
                             </ThemedText>
                         </Pressable>
                         {index < floors.length - 1 && (
-                            <View style={[styles.divider, { backgroundColor: theme.backgroundTertiary }]} />
+                            <ThemedView style={styles.divider} colorName="backgroundTertiary" />
                         )}
                     </React.Fragment>
                 );
             })}
-        </View>
+        </ThemedView>
     );
 }
 
@@ -50,11 +52,6 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: radii.m,
         overflow: 'hidden',
-        elevation: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
         flexDirection: 'column',
     },
     button: {
@@ -62,11 +59,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: spacing.m,
         alignItems: 'center',
         justifyContent: 'center',
-        minWidth: 44,
-        minHeight: 44,
-    },
-    text: {
-        fontWeight: '600',
+        minWidth: spacing.xxl, // 48, close to 44
+        minHeight: spacing.xxl, // 48
     },
     divider: {
         height: 1,

@@ -7,13 +7,14 @@ import { useGetEventsListByTag } from '@/supabase/data';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { EventColumn } from './EventColumn';
-import { EventTagListProps, EventTagListUIProps } from './types';
+import { EventTagListProps } from './types';
 
 const CHUNK_SIZE = 3;
 
 export function EventTagList({ targetTag, title, subtitle }: EventTagListProps) {
     const { data: originalData, isPending, isError } = useGetEventsListByTag(targetTag);
     const chunkedData = useChunkedData(originalData, CHUNK_SIZE);
+    const { width } = useWindowDimensions();
 
     if (isPending) {
         return <LoadingComponent />;
@@ -23,20 +24,7 @@ export function EventTagList({ targetTag, title, subtitle }: EventTagListProps) 
         return <ErrorComponent />;
     }
 
-    return (
-        <EventTagListUI
-            title={title}
-            subtitle={subtitle}
-            chunkedData={chunkedData}
-        />
-    );
-}
-
-
-
-function EventTagListUI({ title, subtitle, chunkedData }: EventTagListUIProps) {
     const hasData = chunkedData && chunkedData.length > 0;
-    const { width } = useWindowDimensions();
     const itemWidth = width * 0.85;
     const separatorWidth = spacing.xl;
     const snapInterval = itemWidth + separatorWidth;

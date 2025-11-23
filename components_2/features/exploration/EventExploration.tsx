@@ -2,35 +2,40 @@ import { ThemedView } from '@/components_2/core/ThemedView';
 import CarouselContents from '@/components_2/features/exploration/CarouselContents';
 import { CategoryTabs } from '@/components_2/features/exploration/CategoryTabs';
 import { EventTagList } from '@/components_2/features/exploration/EventTagList';
-import { EXPLORATION_PRESETS, ExplorationPresetSection } from '@/constants/exploration-presets';
 import { spacing } from '@/constants/theme';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export function EventExploration() {
-    const activePreset = EXPLORATION_PRESETS[0];
+    const sections = [
+        {
+            tag: 'テクノロジー_TEST',
+            title: '注目のテクノロジー',
+            subtitle: 'AI・ロボティクス・未来の技術',
+        },
+        {
+            tag: 'クリエイティブ_TEST',
+            title: 'クリエイティブ展示',
+            subtitle: 'デザイン・アート・映像作品',
+        },
+        {
+            tag: 'コミュニティ_TEST',
+            title: 'みんなで楽しむ',
+            subtitle: 'フード・ゲーム・交流イベント',
+        },
+    ];
 
-    const renderItem = ({ item }: { item: ExplorationPresetSection }) => {
-        switch (item.type) {
-            case 'tag-list':
-                return (
+    return (
+        <ThemedView style={styles.container}>
+            <FlatList
+                data={sections}
+                renderItem={({ item }) => (
                     <EventTagList
                         targetTag={item.tag}
                         title={item.title}
                         subtitle={item.subtitle}
                     />
-                );
-            default:
-                return null;
-        }
-    };
-
-    return (
-        <ThemedView style={styles.container}>
-            <FlatList
-                data={activePreset.sections}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
+                )}
+                keyExtractor={(item) => item.tag}
                 ListHeaderComponent={
                     <View style={styles.headerComponent}>
                         <View style={styles.tabs}>
@@ -39,7 +44,6 @@ export function EventExploration() {
                         <CarouselContents />
                     </View>
                 }
-                ListFooterComponent={<SafeAreaView edges={['bottom']} />}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
                 contentContainerStyle={{
                     paddingVertical: spacing.xxl,
@@ -58,7 +62,6 @@ const styles = StyleSheet.create({
         paddingBottom: spacing.l,
     },
     headerComponent: {
-        paddingTop: spacing.xl,
         paddingBottom: spacing.xxl,
     },
     separator: {

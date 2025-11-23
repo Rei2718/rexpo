@@ -1,15 +1,16 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
-import { Colors, radii, spacing } from '@/constants/theme';
-import React, { useMemo, useRef } from 'react';
-import { StyleSheet, View, useColorScheme, useWindowDimensions } from 'react-native';
+import { ThemedView } from '@/components_2/core/ThemedView';
+import { radii, spacing } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
+import React, { useRef } from 'react';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { getMapStyle } from './mapStyle';
 import { MapComponentProps } from './types';
 
 export default function MapComponent({ venues, onVenueSelect, selectedVenueId }: MapComponentProps) {
-    const colorScheme = useColorScheme() ?? 'light';
-    const theme = Colors[colorScheme];
-    const mapStyle = useMemo(() => getMapStyle(theme), [theme]);
+    const accentColor = useThemeColor('accent');
+    const textSecondaryColor = useThemeColor('textSecondary');
+    const separatorColor = useThemeColor('separator');
 
     const mapRef = useRef<MapView>(null);
     const initialRegion = {
@@ -50,7 +51,6 @@ export default function MapComponent({ venues, onVenueSelect, selectedVenueId }:
                 showsMyLocationButton={false}
                 showsCompass={false}
                 toolbarEnabled={false}
-                customMapStyle={mapStyle}
                 onMapReady={setBoundaries}
                 // @ts-ignore: minZoomLevel is deprecated for Apple Maps but required for Google Maps
                 minZoomLevel={18}
@@ -69,14 +69,14 @@ export default function MapComponent({ venues, onVenueSelect, selectedVenueId }:
                             longitude: venue.map_longitude,
                         }}
                         onPress={() => onVenueSelect(venue.id)}
-                        pinColor={theme.textSecondary}
+                        pinColor={venue.id === selectedVenueId ? accentColor : textSecondaryColor}
                     >
                         <Callout tooltip>
-                            <View style={styles.calloutContainer}>
+                            <ThemedView style={[styles.calloutContainer, { borderColor: separatorColor }]} colorName="backgroundPrimary">
                                 <ThemedText type="label">
                                     {venue.name}
                                 </ThemedText>
-                            </View>
+                            </ThemedView>
                         </Callout>
                     </Marker>
                 ))}

@@ -19,6 +19,8 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: Colors[colorScheme ?? 'light'].backgroundPrimary,
           borderTopWidth: 0,
+          marginBottom: 16,
+          paddingTop: 8,
           elevation: 0, // Android
           shadowOpacity: 0, // iOS
         },

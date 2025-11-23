@@ -31,6 +31,7 @@ export default function CategoryModal() {
           headerTitle: categoryName,
           headerStyle: { backgroundColor: headerBackgroundColor },
           headerTintColor: headerTextColor,
+          headerShadowVisible: false,
         }}
       />
       <ScrollView
