@@ -74,9 +74,9 @@ export default function MapScreen() {
             >
                 <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.backgroundPrimary }]}>
                     {selectedVenueId && selectedVenue ? (
-                        <>
+                        <View style={styles.sheetContainer}>
                             <View style={styles.venueHeader}>
-                                <ThemedText type="h3">{selectedVenue.name}</ThemedText>
+                                <ThemedText type="h2">{selectedVenue.name}</ThemedText>
                                 {selectedVenue.description && (
                                     <ThemedText type="body" style={{ color: theme.textSecondary }}>
                                         {selectedVenue.description}
@@ -84,7 +84,7 @@ export default function MapScreen() {
                                 )}
                             </View>
                             <VenueEventList venueId={selectedVenueId} />
-                        </>
+                        </View>
                     ) : (
                         <EmptyState theme={theme} />
                     )}
@@ -126,10 +126,13 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
-        padding: spacing.m,
+    },
+    sheetContainer: {
+        gap: spacing.xl,
+        paddingVertical: spacing.xl,
     },
     venueHeader: {
-        marginBottom: spacing.m,
+        paddingHorizontal: spacing.xl,
         gap: spacing.xs,
     },
     emptyState: {

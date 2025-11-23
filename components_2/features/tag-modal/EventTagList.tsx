@@ -1,7 +1,7 @@
 import { ErrorComponent } from '@/components_2/core/ErrorComponent';
 import { LoadingComponent } from '@/components_2/core/LoadingComponent';
 import { ThemedText } from '@/components_2/core/ThemedText';
-import { EventCard } from '@/components_2/features/schedule/EventCard';
+import { EventCard } from '@/components_2/features/exploration/EventCard';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { useGetEventsListByTag } from '@/supabase/data';

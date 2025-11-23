@@ -26,14 +26,14 @@ export const Colors = {
     overlay: '#0D0D1280',
   },
   dark: {
-    textPrimary: '#E5E5EA',
-    textSecondary: '#8E8E93',
+    textPrimary: '#F2E3FF',
+    textSecondary: '#8C8C8C',
     textTertiary: '#363638',
     textAccent: accentColorDark,
 
-    backgroundPrimary: '#0C0C0E',
-    backgroundSecondary: '#1C1C1E',
-    backgroundTertiary: '#2C2C2E',
+    backgroundPrimary: '#161616',
+    backgroundSecondary: '#292929',
+    backgroundTertiary: '#383838',
 
     accent: accentColorDark,
     separator: '#38383A',
@@ -83,6 +83,7 @@ export const spacing = {
 
 
 export const radii = {
+  xs: 2,
   s: 4,
   m: 8,
   l: 16,

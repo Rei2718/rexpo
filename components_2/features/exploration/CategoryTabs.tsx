@@ -26,7 +26,7 @@ export function CategoryTabs() {
                     >
                         <Pressable>
                             <ThemedView
-                                colorName="backgroundTertiary"
+                                colorName="backgroundSecondary"
                                 style={styles.tabContainer}
                             >
                                 <ThemedText type="label">{categoryName}</ThemedText>

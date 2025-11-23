@@ -1,6 +1,6 @@
 import { ThemedText } from '@/components_2/core/ThemedText';
 import { ThemedView } from '@/components_2/core/ThemedView';
-import { EventTagList } from '@/components_2/features/schedule/EventTagList';
+import { EventTagList } from '@/components_2/features/exploration/EventTagList';
 import { CATEGORY_MAP } from '@/constants/category-map';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';

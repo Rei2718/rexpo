@@ -4,7 +4,7 @@ import { Colors } from '@/constants/theme';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
-import { msBookmark, msBookmarkFill, msHome, msHomeFill, msPinDrop, msPinDropFill, msSchedule, msScheduleFill } from "@material-symbols-react-native/rounded-200";
+import { msBookmark, msBookmarkFill, msExplore, msExploreFill, msHome, msHomeFill, msPinDrop, msPinDropFill } from "@material-symbols-react-native/rounded-200";
 import { MsIcon } from 'material-symbols-react-native';
 
 export default function TabLayout() {
@@ -36,13 +36,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="schedule"
+        name="exploration"
         options={{
-          title: 'Schedule',
+          title: 'Exploration',
           tabBarIcon: ({ color, focused }) => (
             focused
-              ? <MsIcon icon={msScheduleFill} color={color} size={32} />
-              : <MsIcon icon={msSchedule} color={color} size={32} />
+              ? <MsIcon icon={msExploreFill} color={color} size={32} />
+              : <MsIcon icon={msExplore} color={color} size={32} />
           ),
         }}
       />

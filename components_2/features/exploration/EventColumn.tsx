@@ -1,5 +1,5 @@
 import { ThemedView } from '@/components_2/core/ThemedView';
-import { spacing } from '@/constants/theme';
+import { radii, spacing } from '@/constants/theme';
 import { Fragment } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { EventCard } from './EventCard';
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         gap: spacing.s,
     },
     separator: {
-        height: StyleSheet.hairlineWidth,
+        height: 1,
+        borderRadius: radii.pill,
     },
 });

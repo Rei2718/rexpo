@@ -1,23 +1,26 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
+import { useRefetchOnFocus } from "../../hooks/useRefetchOnFocus";
 import { getEventDetailsById, getEventsByVenueId, getEventsListByTag, getVenues } from "./function";
 import { keys } from "./keys";
 import { Tag } from "./types";
 
 export function useGetEventsListByTag(tag: Tag) {
-  const { data, isPending, isError } = useQuery({
+  const { data, isPending, isError, refetch } = useQuery({
     queryKey: keys.getEventsListByTag(tag),
     queryFn: () => getEventsListByTag(tag),
     enabled: !!tag,
   });
+  useRefetchOnFocus(refetch);
   return { data, isPending, isError };
 }
 
 export function useGetEventDetailsById(id: string) {
-  const { data, isPending, isError } = useQuery({
+  const { data, isPending, isError, refetch } = useQuery({
     queryKey: keys.getEventDetailsById(id),
     queryFn: () => getEventDetailsById(id),
     enabled: !!id,
   });
+  useRefetchOnFocus(refetch);
   return { data, isPending, isError };
 }
 
@@ -38,18 +41,20 @@ export function useGetEventsByIds(ids: string[]) {
 }
 
 export function useGetVenues() {
-  const { data, isPending, isError } = useQuery({
+  const { data, isPending, isError, refetch } = useQuery({
     queryKey: keys.getVenues(),
     queryFn: () => getVenues(),
   });
+  useRefetchOnFocus(refetch);
   return { data, isPending, isError };
 }
 
 export function useGetEventsByVenue(id: string) {
-  const { data, isPending, isError } = useQuery({
+  const { data, isPending, isError, refetch } = useQuery({
     queryKey: keys.getEventsByVenueId(id),
     queryFn: () => getEventsByVenueId(id),
     enabled: !!id,
   });
+  useRefetchOnFocus(refetch);
   return { data, isPending, isError };
 }

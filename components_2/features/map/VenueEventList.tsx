@@ -1,7 +1,5 @@
-import { ErrorComponent } from '@/components_2/core/ErrorComponent';
 import { LoadingComponent } from '@/components_2/core/LoadingComponent';
-import { ThemedText } from '@/components_2/core/ThemedText';
-import { EventCard } from '@/components_2/features/schedule/EventCard';
+import { EventCard } from '@/components_2/features/exploration/EventCard';
 import { spacing } from '@/constants/theme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { useGetEventsByVenue } from '@/supabase/data';
@@ -18,17 +16,6 @@ export function VenueEventList({ venueId }: VenueEventListProps) {
         return <LoadingComponent />;
     }
 
-    if (isError) {
-        return <ErrorComponent />;
-    }
-
-    if (!data || data.length === 0) {
-        return (
-            <View style={styles.emptyContainer}>
-                <ThemedText>この会場に関連するイベントはありません。</ThemedText>
-            </View>
-        );
-    }
 
     return (
         <FlatList
@@ -52,7 +39,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: spacing.xl,
+        paddingHorizontal: spacing.xl,
     },
     separator: {
         height: spacing.s,
@@ -60,6 +47,6 @@ const styles = StyleSheet.create({
         marginBottom: spacing.s,
     },
     flatListContent: {
-        padding: spacing.xl,
+        paddingHorizontal: spacing.xl,
     },
 });

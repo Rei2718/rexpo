@@ -36,7 +36,7 @@ export function EventCard({ item }: EventCardProps) {
                         colorName="backgroundSecondary"
                         style={styles.detailButton}
                     >
-                        <ThemedText type="label" colorName="accent">
+                        <ThemedText type="label" colorName="textPrimary">
                             詳細
                         </ThemedText>
                     </ThemedView>
