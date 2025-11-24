@@ -24,9 +24,9 @@ export const MaterialTopTabs = withLayoutContext<
 export default function ExplorationLayout() {
     const backgroundColor = useThemeColor('backgroundPrimary');
     const textColor = useThemeColor('textPrimary');
-    const indicatorColor = useThemeColor('accent');
-    const inactivetabBarColor = textColor + '80';
-    const inactiveIndicatorColor = textColor + '10';
+    const indicatorColor = useThemeColor("textPrimary");
+    const inactivetabBarColor = textColor + "80";
+    const inactiveIndicatorColor = textColor + '20';
 
     return (
         <ThemedView style={styles.container}>

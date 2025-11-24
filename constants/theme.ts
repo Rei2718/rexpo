@@ -26,9 +26,9 @@ export const Colors = {
     overlay: '#0D0D1280',
   },
   dark: {
-    textPrimary: '#F2E3FF',
+    textPrimary: '#DEDEDE',
     textSecondary: '#8C8C8C',
-    textTertiary: '#363638',
+    textTertiary: '#292929',
     textAccent: accentColorDark,
 
     backgroundPrimary: '#161616',
